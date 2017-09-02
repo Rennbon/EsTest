@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EsBusiness\EsBusiness.csproj" />
+    <ProjectReference Include="..\EsEnum\EsEnum.csproj" />
+    <ProjectReference Include="..\ESFramework\ESFramework.csproj" />
+    <ProjectReference Include="..\EsModel\EsEntity.csproj" />
+  </ItemGroup>
+
+</Project>

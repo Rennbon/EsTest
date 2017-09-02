@@ -1,0 +1,6 @@
+D:\demo\EsCore\EsModel\bin\Debug\netcoreapp2.0\EsModel.deps.json
+D:\demo\EsCore\EsModel\bin\Debug\netcoreapp2.0\EsModel.dll
+D:\demo\EsCore\EsModel\obj\Debug\netcoreapp2.0\EsModel.csprojResolveAssemblyReference.cache
+D:\demo\EsCore\EsModel\obj\Debug\netcoreapp2.0\EsModel.csproj.CoreCompileInputs.cache
+D:\demo\EsCore\EsModel\obj\Debug\netcoreapp2.0\EsModel.AssemblyInfoInputs.cache
+D:\demo\EsCore\EsModel\obj\Debug\netcoreapp2.0\EsModel.AssemblyInfo.cs

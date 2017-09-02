@@ -450,6 +450,7 @@
       },
       "ESFramework/1.0.0": {
         "dependencies": {
+          "NEST": "5.5.0",
           "Newtonsoft.Json": "10.0.3",
           "System.ValueTuple": "4.4.0"
         },

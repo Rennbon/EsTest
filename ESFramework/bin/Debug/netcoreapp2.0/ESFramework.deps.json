@@ -1,18 +1,32 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "ecb395b9e946a5e0193898712d05dc22c9751c08"
+    "signature": "3e5ea7a7045f9ca817bf46c281729a0ea2df0f67"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "ESFramework/1.0.0": {
         "dependencies": {
+          "NEST": "5.5.0",
           "Newtonsoft.Json": "10.0.3",
           "System.ValueTuple": "4.4.0"
         },
         "runtime": {
           "ESFramework.dll": {}
+        }
+      },
+      "Elasticsearch.Net/5.5.0": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.3.0",
+          "System.Collections.Specialized": "4.3.0",
+          "System.ComponentModel.TypeConverter": "4.3.0",
+          "System.Dynamic.Runtime": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime.Serialization.Primitives": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Elasticsearch.Net.dll": {}
         }
       },
       "Microsoft.CSharp/4.3.0": {
@@ -36,6 +50,18 @@
         }
       },
       "Microsoft.NETCore.Targets/1.1.0": {},
+      "NEST/5.5.0": {
+        "dependencies": {
+          "Elasticsearch.Net": "5.5.0",
+          "Newtonsoft.Json": "10.0.3",
+          "System.Collections.Specialized": "4.3.0",
+          "System.Linq.Queryable": "4.0.1",
+          "System.Reflection.TypeExtensions": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Nest.dll": {}
+        }
+      },
       "Newtonsoft.Json/10.0.3": {
         "dependencies": {
           "Microsoft.CSharp": "4.3.0",
@@ -207,6 +233,18 @@
           "System.Runtime": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
           "System.Threading": "4.3.0"
+        }
+      },
+      "System.Linq.Queryable/4.0.1": {
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Linq.Expressions": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0"
         }
       },
       "System.ObjectModel/4.3.0": {
@@ -397,6 +435,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Elasticsearch.Net/5.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AS/kE59g2AgnW3TBIMXQEjBr1EwxGxT+wOJK/btXSCPmwnkC4FaT6Sv/4GW+2MriTE7FfWokzSUY3HtHMoob+Q==",
+      "path": "elasticsearch.net/5.5.0",
+      "hashPath": "elasticsearch.net.5.5.0.nupkg.sha512"
+    },
     "Microsoft.CSharp/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -410,6 +455,13 @@
       "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
+    },
+    "NEST/5.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KWETb7Y4r5YYvEJALBZgYUhnUUgHZdt6DmDWbu1kKpVEM6o8PXOkC3/Q/D0npLue6UKZDT6FWX8ygZobnbK0Qw==",
+      "path": "nest/5.5.0",
+      "hashPath": "nest.5.5.0.nupkg.sha512"
     },
     "Newtonsoft.Json/10.0.3": {
       "type": "package",
@@ -522,6 +574,13 @@
       "sha512": "sha512-PGKkrd2khG4CnlyJwxwwaWWiSiWFNBGlgXvJpeO0xCXrZ89ODrQ6tjEWS/kOqZ8GwEOUATtKtzp1eRgmYNfclg==",
       "path": "system.linq.expressions/4.3.0",
       "hashPath": "system.linq.expressions.4.3.0.nupkg.sha512"
+    },
+    "System.Linq.Queryable/4.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Yn/WfYe9RoRfmSLvUt2JerP0BTGGykCZkQPgojaxgzF2N0oPo+/AhB8TXOpdCcNlrG3VRtsamtK2uzsp3cqRVw==",
+      "path": "system.linq.queryable/4.0.1",
+      "hashPath": "system.linq.queryable.4.0.1.nupkg.sha512"
     },
     "System.ObjectModel/4.3.0": {
       "type": "package",

@@ -75,6 +75,7 @@ namespace Test
             TaskCenterBusiness.Instance.AddTasks(tasks);
             #endregion addtask
 
+            TaskCenterBusiness.Instance.RemoveTasks(new List<string> { "t1","t2"});
 
         }
     }

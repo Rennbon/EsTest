@@ -82,6 +82,6 @@ namespace EsEntity.TaskCenter
         /// </summary>
         [Text(Name = "kw", Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
         public List<string> Keywords { set; get; }
-
+   
     }
 }

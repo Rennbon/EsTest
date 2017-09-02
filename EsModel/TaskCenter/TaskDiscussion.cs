@@ -10,7 +10,7 @@ namespace EsEntity.TaskCenter
     [ElasticsearchType(Name = EsSysConfig.TypeNameTaskDiscussion, IdProperty = nameof(DiscussionId))]
     public class TaskDiscussion : InnerModel.DiscussionBase
     {
-
+        
     }
 
 }

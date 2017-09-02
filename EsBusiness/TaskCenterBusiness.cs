@@ -8,6 +8,9 @@ using EsEntity.TaskCenter;
 using System.Reflection;
 using EsEntity;
 using EsEntity.Indexer;
+using System.Linq;
+using EsEntity.TaskCenterMethod;
+using EsEnum.TaskCenter;
 
 namespace EsBusiness
 {
@@ -33,16 +36,41 @@ namespace EsBusiness
             get { return lazy.Value; }
         }
 
-        public ReturnResult AddTasks(List<Task> models)
-        {
-            ReturnResult re = new ReturnResult(ResultCode.Success);
-            try
-            {
-                var result = client.IndexMany<Task>(models,indexName,"task");
-            }
-            catch (Exception es)
-            {
 
+        public ReturnResult UpdateTasks(List<TaskMethed> metheds)
+        {
+           
+            List<Task>
+            foreach (var item in metheds)
+            {
+                switch (item.Methed)
+                {
+                    case TaskMethodEnum.Set_Charge:
+
+
+
+                }
+            }
+        }
+
+        public ReturnResult AddTasks(List<Task> tasks)
+        {
+            ReturnResult re = new ReturnResult(ResultCode.Error);
+            var result = client.IndexMany<Task>(tasks, indexName, "task");
+            if (result.IsValid)
+            {
+                re.code = ResultCode.Success;
+            }
+            return re;
+        }
+
+        public ReturnResult RemoveTasks(List<string> taskIds)
+        {
+            ReturnResult re = new ReturnResult(ResultCode.Error);
+            var result = client.DeleteMany<Task>(taskIds.Select(o => new Task { TaskID = o }));
+            if (result.IsValid)
+            {
+                re.code = ResultCode.Success;
             }
             return re;
         }

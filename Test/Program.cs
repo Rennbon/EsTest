@@ -10,7 +10,7 @@ namespace Test
         {
             //TaskCenterBusiness.Instance.CreateIndex() ;
             #region addtask
-            List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>();  
+            List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>();
             tasks.Add(new EsEntity.TaskCenter.Task
             {
                 AppID = string.Empty,
@@ -40,7 +40,7 @@ namespace Test
                 TaskID = "t1",
                 TaskName = "测试任务1",
                 UpdateTime = DateTime.Now,
-                
+
             });
             tasks.Add(new EsEntity.TaskCenter.Task
             {
@@ -75,7 +75,32 @@ namespace Test
             TaskCenterBusiness.Instance.AddTasks(tasks);
             #endregion addtask
 
-            TaskCenterBusiness.Instance.RemoveTasks(new List<string> { "t1","t2"});
+            #region removetask
+            //TaskCenterBusiness.Instance.RemoveTasks(new List<string> { "t1","t2"});
+            #endregion removetask
+
+            #region updateTask
+            List<EsEntity.TaskCenterMethod.TaskMethed> metheds = new List<EsEntity.TaskCenterMethod.TaskMethed>();
+            metheds.Add(new EsEntity.TaskCenterMethod.TaskMethed
+            {
+                Methed = EsEnum.TaskCenter.TaskMethodEnum.Set_TaskName,
+                Task = new EsEntity.TaskCenter.Task
+                {
+                    TaskID = "t1",
+                    TaskName = "任务名改11111"
+                }
+            });
+            metheds.Add(new EsEntity.TaskCenterMethod.TaskMethed
+            {
+                Methed = EsEnum.TaskCenter.TaskMethodEnum.Set_TaskName,
+                Task = new EsEntity.TaskCenter.Task
+                {
+                    TaskID = "t2",
+                    TaskName = "任务改22222"
+                }
+            });
+            TaskCenterBusiness.Instance.UpdateTasks(metheds);
+            #endregion updateTask
 
         }
     }

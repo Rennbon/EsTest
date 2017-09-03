@@ -15,3 +15,4 @@ F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.AssemblyInfoInputs.cac
 F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.AssemblyInfo.cs
 F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.dll
 F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.pdb
+F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.csprojResolveAssemblyReference.cache

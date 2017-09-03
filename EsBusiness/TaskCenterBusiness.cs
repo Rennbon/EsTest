@@ -11,6 +11,9 @@ using EsEntity.Indexer;
 using System.Linq;
 using EsEntity.TaskCenterMethod;
 using EsEnum.TaskCenter;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using ESFramework.Estensions;
 
 namespace EsBusiness
 {
@@ -39,18 +42,33 @@ namespace EsBusiness
 
         public ReturnResult UpdateTasks(List<TaskMethed> metheds)
         {
-           
-            List<Task>
+            ReturnResult re = new ReturnResult(ResultCode.Error);
+            BulkRequest bulkRequest = new BulkRequest() { Operations = new List<IBulkOperation>() };
             foreach (var item in metheds)
             {
-                switch (item.Methed)
+                //var operation = new BulkUpdateOperation<Task,object>(item.Task.TaskID);
+
+                //operation.Doc = new {Name = item.Task.TaskName};
+
+                var operation = new BulkUpdateOperation<Task, string>(item.Task.TaskID);
+                Task a = new Task { TaskName = item.Task.TaskName };
+                operation.Doc =new JObject("Name","123");
+
+                string jsonString = JsonConvert.SerializeObject(a, Formatting.Indented, new JsonSerializerSettings
                 {
-                    case TaskMethodEnum.Set_Charge:
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    ContractResolver = new CustomContractResolver(new List<string> { "ApplyUser", "StartUser", "CompleteUser", "AuthoriseUser", "Tests" })
+                });
 
+                bulkRequest.Operations.Add(operation);
 
-
-                }
             }
+            var result = client.Bulk(bulkRequest);
+            if (result.IsValid)
+            {
+                re.code = ResultCode.Success;
+            }
+            return re;
         }
 
         public ReturnResult AddTasks(List<Task> tasks)

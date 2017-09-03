@@ -48,19 +48,21 @@ namespace EsBusiness
             {
                 //var operation = new BulkUpdateOperation<Task,object>(item.Task.TaskID);
 
-                //operation.Doc = new {Name = item.Task.TaskName};
+               // //operation.Doc = new {Name = item.Task.TaskName};
+               // Task task = new Task { TaskName = "aaaaaaaaaaa" };
+               // var operation = new BulkUpdateOperation<Task, string>(item.Task.TaskID).Doc= new ;
 
-                var operation = new BulkUpdateOperation<Task, string>(item.Task.TaskID);
-                Task a = new Task { TaskName = item.Task.TaskName };
-                operation.Doc =new JObject("Name","123");
+               // string jsonString = JsonConvert.SerializeObject(task, Formatting.Indented, new JsonSerializerSettings
+               // {
+               //     a
+               //     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+               //     ContractResolver = new CustomContractResolver(new List<string> {"TaskName"})
+               // });
+               //jsonString = client.Serializer.Serialize(async,)
+                //operation.Doc =new JObject("Name","123");
 
-                string jsonString = JsonConvert.SerializeObject(a, Formatting.Indented, new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    ContractResolver = new CustomContractResolver(new List<string> { "ApplyUser", "StartUser", "CompleteUser", "AuthoriseUser", "Tests" })
-                });
-
-                bulkRequest.Operations.Add(operation);
+             
+                //bulkRequest.Operations.Add(operation);
 
             }
             var result = client.Bulk(bulkRequest);

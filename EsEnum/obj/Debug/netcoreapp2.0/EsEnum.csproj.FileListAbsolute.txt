@@ -9,9 +9,9 @@ D:\demo\EsCore\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.pdb
 F:\EsCore\EsEnum\bin\Debug\netcoreapp2.0\EsEnum.deps.json
 F:\EsCore\EsEnum\bin\Debug\netcoreapp2.0\EsEnum.dll
 F:\EsCore\EsEnum\bin\Debug\netcoreapp2.0\EsEnum.pdb
+F:\EsCore\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.csprojResolveAssemblyReference.cache
 F:\EsCore\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.csproj.CoreCompileInputs.cache
 F:\EsCore\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.AssemblyInfoInputs.cache
 F:\EsCore\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.AssemblyInfo.cs
 F:\EsCore\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.dll
 F:\EsCore\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.pdb
-F:\EsCore\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.csprojResolveAssemblyReference.cache

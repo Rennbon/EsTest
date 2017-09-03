@@ -14,74 +14,87 @@ namespace EsEntity.TaskCenter
         /// <summary>
         /// 任务id
         /// </summary>
-        [Keyword(Name = "id")]
+        [Keyword]
+        [JsonProperty("id")]
         public string TaskID { get; set; }
         /// <summary>
         /// 任务名
         /// </summary>
-        [Text(Name = "name", Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word", Boost = 3)]
+        [Text(Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word", Boost = 3)]
+        [JsonProperty("name")]
         public string TaskName { get; set; }
         /// <summary>
         /// 项目id
         /// </summary>
-        [Keyword(Name = "fid", EagerGlobalOrdinals = true)]
+        [Keyword(EagerGlobalOrdinals = true)]
+        [JsonProperty("fid")]
         public string FolderID { get; set; }
         /// <summary>
         /// 项目名
         /// </summary>
-        [Text(Name = "fname", Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [Text(Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [JsonProperty("fname")]
         public string FolderName { get; set; }
 
         /// <summary>
         /// 母任务id
         /// </summary>
-        [Keyword(Name = "parentid")]
+        [Keyword]
+        [JsonProperty("parentid")]
         public string ParentID { get; set; }
 
         /// <summary>
         /// 任务详情
         /// </summary>
-        [Text(Name = "content", Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [Text( Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [JsonProperty("content")]
         public string Content { get; set; }
         /// <summary>
         /// 开始时间
         /// </summary>
-        [Date(Name = "starttime", Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date( Format = "yyyy-MM-dd HH:mm:ss")]
+        [JsonProperty("starttime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime StartTime { get; set; }
         /// <summary>
         /// 截止时间
         /// </summary>
-        [Date(Name = "endtime", Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date( Format = "yyyy-MM-dd HH:mm:ss")]
+        [JsonProperty("endtime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime EndTime { get; set; }
         /// <summary>
         /// 负责人id
         /// </summary>
-        [Keyword(Name = "chargeaid")]
+        [Keyword]
+        [JsonProperty("chargeaid")]
         public string ChargeAccountID { get; set; }
         /// <summary>
         /// 任务状态
         /// </summary>
-        [Number(Name = "status")]
+        [Number]
+        [JsonProperty("status")]
         public int Status { get; set; }
         /// <summary>
         /// 完成时间
         /// </summary>
-        [Date(Name = "completetime", Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date( Format = "yyyy-MM-dd HH:mm:ss")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
+        [JsonProperty("completetime")]
         public DateTime CompleteTime { get; set; }
 
         /// <summary>
         /// 有效成员id
         /// </summary>
-        [Keyword(Name = "memberids")]
+        [Keyword]
+        [JsonProperty("memberids")]
         public List<string> MemberIds { set; get; }
         /// <summary>
         /// 关键字，不存任务名
         /// </summary>
-        [Text(Name = "kw", Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [Text( Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [JsonProperty("kw")]
         public List<string> Keywords { set; get; }
-   
+
     }
 }

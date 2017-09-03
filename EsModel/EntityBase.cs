@@ -8,19 +8,25 @@ namespace EsEntity
 {
     public class EntityBase
     {
-        [Keyword(Name = "appid")]
+        [Keyword]
+        [JsonProperty("appid")]
         public string AppID { set; get; }
-        [Boolean(Name = "isdel")]
+        [Boolean]
+        [JsonProperty("isdel")]
         public bool IsDeleted { get; set; }
-        [Date(Name = "utime", Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
+        [JsonProperty("utime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime UpdateTime { get; set; }
-        [Date(Name = "ctime", Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
+        [JsonProperty("ctime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime CreateTime { get; set; }
-        [Keyword(Name = "pid")]
+        [Keyword]
+        [JsonProperty("pid")]
         public string ProjectId { set; get; }
-        [Keyword(Name = "caid")]
+        [Keyword]
+        [JsonProperty("caid")]
         public string CreateAccountID { get; set; }
     }
 }

@@ -8,14 +8,14 @@ namespace ESFramework.Estensions
 {
     public class CustomContractResolver: DefaultContractResolver
     {
-        IEnumerable<string> lstExclude;
-        public CustomContractResolver(IEnumerable<string> excludedProperties)
+        IEnumerable<string> lstInclude;
+        public CustomContractResolver(IEnumerable<string> includedProperties)
         {
-            lstExclude = excludedProperties;
+            lstInclude = includedProperties;
         }
         protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
         {
-            return base.CreateProperties(type, memberSerialization).ToList().FindAll(p => !lstExclude.Contains(p.PropertyName));
+            return base.CreateProperties(type, memberSerialization).ToList().FindAll(p => lstInclude.Contains(p.PropertyName));
         }
     }
 }

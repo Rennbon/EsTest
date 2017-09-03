@@ -10,9 +10,9 @@ D:\demo\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.csprojResolveAsse
 F:\EsCore\ESFramework\bin\Debug\netcoreapp2.0\ESFramework.deps.json
 F:\EsCore\ESFramework\bin\Debug\netcoreapp2.0\ESFramework.dll
 F:\EsCore\ESFramework\bin\Debug\netcoreapp2.0\ESFramework.pdb
+F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.csprojResolveAssemblyReference.cache
 F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.csproj.CoreCompileInputs.cache
 F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.AssemblyInfoInputs.cache
 F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.AssemblyInfo.cs
 F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.dll
 F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.pdb
-F:\EsCore\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.csprojResolveAssemblyReference.cache

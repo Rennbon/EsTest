@@ -8,7 +8,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            //TaskCenterBusiness.Instance.CreateIndex() ;
+            TaskCenterBusiness.Instance.CreateIndex() ;
             #region addtask
             List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>();
             tasks.Add(new EsEntity.TaskCenter.Task
@@ -72,7 +72,7 @@ namespace Test
                 TaskName = "测试任务2",
                 UpdateTime = DateTime.Now
             });
-            TaskCenterBusiness.Instance.AddTasks(tasks);
+            //TaskCenterBusiness.Instance.AddTasks(tasks);
             #endregion addtask
 
             #region removetask

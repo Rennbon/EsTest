@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace ESFramework.Estensions
 {
-    public class CustomContractResolver: DefaultContractResolver
+    public class IncludeContractResolver: DefaultContractResolver
     {
         IEnumerable<string> lstInclude;
-        public CustomContractResolver(IEnumerable<string> includedProperties)
+        public IncludeContractResolver(IEnumerable<string> includedProperties)
         {
             lstInclude = includedProperties;
         }

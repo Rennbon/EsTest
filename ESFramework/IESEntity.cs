@@ -4,7 +4,10 @@ using System.Text;
 
 namespace ESFramework
 {
-    public abstract class EsEntityBase
+    /// <summary>
+    /// es数据库实体最基础接口
+    /// </summary>
+    public interface IESEntity
     {
     }
 }

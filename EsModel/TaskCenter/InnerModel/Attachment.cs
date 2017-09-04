@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using Nest;
+using Newtonsoft.Json;
 
 namespace EsEntity.TaskCenter.InnerModel
 {
     public class Attachment
     {
-        [Keyword(Name = "fileId")]
+        [Keyword]
+        [JsonProperty("fileId")]
         public string FileId { set; get; }
-        [Text(Name = "content", Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [Text(Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [JsonProperty("content")]
         public string Content { set; get; }
     }
 }

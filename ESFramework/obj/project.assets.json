@@ -3769,11 +3769,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "F:\\EsCore\\ESFramework\\ESFramework.csproj",
+      "projectUniqueName": "D:\\demo\\EsTest\\ESFramework\\ESFramework.csproj",
       "projectName": "ESFramework",
-      "projectPath": "F:\\EsCore\\ESFramework\\ESFramework.csproj",
+      "projectPath": "D:\\demo\\EsTest\\ESFramework\\ESFramework.csproj",
       "packagesPath": "C:\\Users\\Rennbon\\.nuget\\packages\\",
-      "outputPath": "F:\\EsCore\\ESFramework\\obj\\",
+      "outputPath": "D:\\demo\\EsTest\\ESFramework\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3787,6 +3787,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://proget.fe.mingdao.net/nuget/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

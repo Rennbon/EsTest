@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace EsEntity
 {
-    public class EntityBase
+    public class EntityBase : ESFramework.IESEntity
     {
         [Keyword]
         [JsonProperty("appid")]

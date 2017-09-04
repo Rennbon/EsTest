@@ -14,6 +14,7 @@ using EsEnum.TaskCenter;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ESFramework.Estensions;
+using System.Linq.Expressions;
 
 namespace EsBusiness
 {
@@ -46,22 +47,16 @@ namespace EsBusiness
             BulkRequest bulkRequest = new BulkRequest() { Operations = new List<IBulkOperation>() };
             foreach (var item in metheds)
             {
-                //var operation = new BulkUpdateOperation<Task,object>(item.Task.TaskID);
+                var operation = new BulkUpdateOperation<Task, string>(item.Task.TaskID);
 
-               // //operation.Doc = new {Name = item.Task.TaskName};
-               // Task task = new Task { TaskName = "aaaaaaaaaaa" };
-               // var operation = new BulkUpdateOperation<Task, string>(item.Task.TaskID).Doc= new ;
 
-               // string jsonString = JsonConvert.SerializeObject(task, Formatting.Indented, new JsonSerializerSettings
-               // {
-               //     a
-               //     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-               //     ContractResolver = new CustomContractResolver(new List<string> {"TaskName"})
-               // });
-               //jsonString = client.Serializer.Serialize(async,)
-                //operation.Doc =new JObject("Name","123");
+                //operation.Doc = new {Name = item.Task.TaskName};
+                Task task = new Task { TaskName = "aaaaaaaaaaa" };
+                task.SerializeToDoc(() => task.Keywords);
 
-             
+                //operation.Doc = task.SerializeToDoc<Task>(nameof(Task.TaskName));
+                //Task.
+                //operation.Doc =task.SerializeToDoc<Task>
                 //bulkRequest.Operations.Add(operation);
 
             }

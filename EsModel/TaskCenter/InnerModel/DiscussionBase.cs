@@ -1,4 +1,5 @@
 ﻿using Nest;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +7,10 @@ using System.Text;
 
 namespace EsEntity.TaskCenter.InnerModel
 {
-    public class DiscussionBase: EntityBase
+    public class DiscussionBase : EntityBase
     {
-        [Keyword(Name = "id")]
+        [Keyword]
+        [JsonProperty("id")]
         public string DiscussionId
         {
             get { return string.IsNullOrEmpty(_discussionId) ? string.Empty : _discussionId.ToLower(); }
@@ -17,7 +19,8 @@ namespace EsEntity.TaskCenter.InnerModel
         /// <summary>
         /// 依附主体id
         /// </summary>
-        [Keyword(Name = "sid")]
+        [Keyword]
+        [JsonProperty("sid")]
         public string SourceId
         {
             get { return string.IsNullOrEmpty(_sourceId) ? string.Empty : _sourceId.ToLower(); }
@@ -27,7 +30,8 @@ namespace EsEntity.TaskCenter.InnerModel
         /// <summary>
         /// 被回复的讨论id
         /// </summary>
-        [Keyword(Name = "replyid")]
+        [Keyword]
+        [JsonProperty("replyid")]
         public string ReplyId
         {
             get { return string.IsNullOrEmpty(_replyId) ? string.Empty : _replyId.ToLower(); }
@@ -36,7 +40,8 @@ namespace EsEntity.TaskCenter.InnerModel
         /// <summary>
         /// 被回复的讨论创建者（冗余）
         /// </summary>
-        [Keyword(Name = "replyaid")]
+        [Keyword]
+        [JsonProperty("replyaid")]
         public string ReplyAccountId
         {
             get { return string.IsNullOrEmpty(_replyAccountId) ? string.Empty : _replyAccountId.ToLower(); }
@@ -45,18 +50,21 @@ namespace EsEntity.TaskCenter.InnerModel
         /// <summary>
         /// 附件类型
         /// </summary>
-        [Number(Name = "filetype")]
+        [Number]
+        [JsonProperty("filetype")]
         public int FileType { get; set; }
         /// <summary>
         /// 讨论内容
         /// </summary>
-        [Text(Name = "msg", Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [Text(Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [JsonProperty("msg")]
         public string Message { set; get; }
 
         /// <summary>
         /// 被提及的人，inbox计数用到
         /// </summary>
-        [Keyword(Name = "mentionaids")]
+        [Keyword]
+        [JsonProperty("mentionaids")]
         public List<string> MentionedAccountIds
         {
             get { return _mentionedAccountIds ?? new List<string>(); }
@@ -66,7 +74,8 @@ namespace EsEntity.TaskCenter.InnerModel
                     (value ?? new List<string>()).Select(o => (o ?? string.Empty).ToLower()).Distinct().ToList();
             }
         }
-        [Object(Name = "attachments")]
+        [Object]
+        [JsonProperty("attachments")]
         public List<Attachment> Attachments { set; get; }
         private string _discussionId;
         private string _sourceId;

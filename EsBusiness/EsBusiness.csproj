@@ -15,4 +15,8 @@
     <ProjectReference Include="..\EsModel\EsEntity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helper\" />
+  </ItemGroup>
+
 </Project>

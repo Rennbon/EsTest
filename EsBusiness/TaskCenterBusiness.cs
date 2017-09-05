@@ -47,18 +47,9 @@ namespace EsBusiness
             BulkRequest bulkRequest = new BulkRequest() { Operations = new List<IBulkOperation>() };
             foreach (var item in metheds)
             {
-                var operation = new BulkUpdateOperation<Task, string>(item.Task.TaskID);
-
-
-                //operation.Doc = new {Name = item.Task.TaskName};
-                Task task = new Task { TaskName = "aaaaaaaaaaa" };
-                task.SerializeToDoc(() => task.Keywords);
-
-                //operation.Doc = task.SerializeToDoc<Task>(nameof(Task.TaskName));
-                //Task.
-                //operation.Doc =task.SerializeToDoc<Task>
-                //bulkRequest.Operations.Add(operation);
-
+                var operation = new BulkUpdateOperation<Task, object>(item.Task.TaskID);
+                operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.TaskName, item.Task.TaskName);
+                bulkRequest.Operations.Add(operation);
             }
             var result = client.Bulk(bulkRequest);
             if (result.IsValid)

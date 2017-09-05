@@ -99,7 +99,7 @@ namespace Test
                     TaskName = "任务改22222"
                 }
             });
-            //TaskCenterBusiness.Instance.UpdateTasks(metheds);
+            TaskCenterBusiness.Instance.UpdateTasks(metheds);
             #endregion updateTask
 
         }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ESFramework.Estensions
 {
-    public class IncludeContractResolver: DefaultContractResolver
+    public class IncludeContractResolver : DefaultContractResolver
     {
         IEnumerable<string> lstInclude;
         public IncludeContractResolver(IEnumerable<string> includedProperties)
@@ -15,7 +15,8 @@ namespace ESFramework.Estensions
         }
         protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
         {
-            return base.CreateProperties(type, memberSerialization).ToList().FindAll(p => lstInclude.Contains(p.PropertyName));
+            //var a = base.CreateProperties(type, memberSerialization).ToList().First();
+            return base.CreateProperties(type, memberSerialization).ToList().FindAll(p => lstInclude.Contains(p.UnderlyingName));
         }
     }
 }

@@ -6,5 +6,6 @@ namespace EsBusiness.Helper
 {
     public class GlobalHelper
     {
+        public 
     }
 }

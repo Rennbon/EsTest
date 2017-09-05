@@ -131,6 +131,7 @@ namespace EsBusiness
                     )
                 )
             //.DocvalueFields(fd => fd.FolderID, fd => fd.FolderName, fd => fd.UpdateTime)
+            .
             .Script(script => script
                 .Inline("ctx._source.fid ='';ctx._source.fname= '';")
 

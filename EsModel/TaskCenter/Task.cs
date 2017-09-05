@@ -8,7 +8,7 @@ using System.Text;
 
 namespace EsEntity.TaskCenter
 {
-    [ElasticsearchType(Name = EsSysConfig.TypeNameTask, IdProperty = nameof(TaskID))]
+    [ElasticsearchType(Name = EsSysConfig.TypeNameTask, IdProperty = nameof(TaskId))]
     public class Task : EntityBase
     {
         /// <summary>
@@ -16,7 +16,7 @@ namespace EsEntity.TaskCenter
         /// </summary>
         [Keyword]
         [JsonProperty("id")]
-        public string TaskID { get; set; }
+        public string TaskId { get; set; }
         /// <summary>
         /// 任务名
         /// </summary>

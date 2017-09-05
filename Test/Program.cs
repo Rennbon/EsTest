@@ -37,7 +37,7 @@ namespace Test
                 ProjectId = string.Empty,
                 StartTime = DateTime.Now.AddDays(-10),
                 Status = 1,
-                TaskID = "t1",
+                TaskId = "t1",
                 TaskName = "测试任务1",
                 UpdateTime = DateTime.Now,
 
@@ -68,7 +68,7 @@ namespace Test
                 ProjectId = string.Empty,
                 StartTime = DateTime.Now.AddDays(-10),
                 Status = 1,
-                TaskID = "t2",
+                TaskId = "t2",
                 TaskName = "测试任务2",
                 UpdateTime = DateTime.Now
             });
@@ -86,22 +86,25 @@ namespace Test
                 Methed = EsEnum.TaskCenter.TaskMethodEnum.Set_TaskName,
                 Task = new EsEntity.TaskCenter.Task
                 {
-                    TaskID = "t1",
+                    TaskId = "t1",
                     TaskName = "任务名改11111"
                 }
             });
             metheds.Add(new EsEntity.TaskCenterMethod.TaskMethed
             {
-                Methed = EsEnum.TaskCenter.TaskMethodEnum.Set_TaskName,
+                Methed = EsEnum.TaskCenter.TaskMethodEnum.Push_MemberIds,
                 Task = new EsEntity.TaskCenter.Task
                 {
-                    TaskID = "t2",
-                    TaskName = "任务改22222"
+                    TaskId = "t2",
+                    TaskName = "任务改22222",
+                    MemberIds = new List<string> { "1","3","5"}
                 }
             });
-            TaskCenterBusiness.Instance.UpdateTasks(metheds);
+            //TaskCenterBusiness.Instance.UpdateTasks(metheds);
             #endregion updateTask
 
+
+            TaskCenterBusiness.Instance.RemoveTasksFromFolder("f1");
         }
     }
 }

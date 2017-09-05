@@ -6,8 +6,8 @@ namespace EsEnum.TaskCenter
 {
     public enum TaskMethodEnum
     {
-        Add=1,
-        Delete=2,
+        //Add=1,
+        //Delete=2,
         Set_UpdateTime = 3,
         Set_CreateAccountId = 4,
 

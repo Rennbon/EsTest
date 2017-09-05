@@ -6,8 +6,8 @@ namespace EsEnum.TaskCenter
 {
     public enum DiscussionMethodEnum
     {
-        Add = 1,
-        Delete = 2,
+        //Add = 1,
+        //Delete = 2,
 
 
         Set_FileType =3,

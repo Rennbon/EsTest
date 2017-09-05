@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ESFramework
 {
-    public class ReturnResult : RetrunResult<object>
+    public class ReturnResult : ReturnResult<object>
     {
         #region 构造函数
 
@@ -36,26 +36,26 @@ namespace ESFramework
     /// 泛型版本的业务操作结果信息类，对操作结果进行封装
     /// </summary>
     /// <typeparam name="T">返回数据的类型</typeparam>
-    public class RetrunResult<T>
+    public class ReturnResult<T>
     {
         /// <summary>
-        /// 初始化一个<see cref="RetrunResult{T}"/>类型的新实例
+        /// 初始化一个<see cref="ReturnResult{T}"/>类型的新实例
         /// </summary>
-        public RetrunResult(ResultCode code)
+        public ReturnResult(ResultCode code)
             : this(code, null, default(T))
         { }
 
         /// <summary>
-        /// 初始化一个<see cref="RetrunResult{T}"/>类型的新实例
+        /// 初始化一个<see cref="ReturnResult{T}"/>类型的新实例
         /// </summary>
-        public RetrunResult(ResultCode code, string msg)
+        public ReturnResult(ResultCode code, string msg)
             : this(code, msg, default(T))
         { }
 
         /// <summary>
-        /// 初始化一个<see cref="RetrunResult{T}"/>类型的新实例
+        /// 初始化一个<see cref="ReturnResult{T}"/>类型的新实例
         /// </summary>
-        public RetrunResult(ResultCode code, string msg, T data)
+        public ReturnResult(ResultCode code, string msg, T data)
         {
             this.code = code;
             this.msg = msg;

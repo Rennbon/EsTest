@@ -3830,11 +3830,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\demo\\EsTest\\EsBusiness\\EsBusiness.csproj",
+      "projectUniqueName": "F:\\EsTest\\EsBusiness\\EsBusiness.csproj",
       "projectName": "EsBusiness",
-      "projectPath": "D:\\demo\\EsTest\\EsBusiness\\EsBusiness.csproj",
+      "projectPath": "F:\\EsTest\\EsBusiness\\EsBusiness.csproj",
       "packagesPath": "C:\\Users\\Rennbon\\.nuget\\packages\\",
-      "outputPath": "D:\\demo\\EsTest\\EsBusiness\\obj\\",
+      "outputPath": "F:\\EsTest\\EsBusiness\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3848,17 +3848,16 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://proget.fe.mingdao.net/nuget/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "D:\\demo\\EsTest\\EsModel\\EsEntity.csproj": {
-              "projectPath": "D:\\demo\\EsTest\\EsModel\\EsEntity.csproj"
+            "F:\\EsTest\\EsModel\\EsEntity.csproj": {
+              "projectPath": "F:\\EsTest\\EsModel\\EsEntity.csproj"
             },
-            "D:\\demo\\EsTest\\ESFramework\\ESFramework.csproj": {
-              "projectPath": "D:\\demo\\EsTest\\ESFramework\\ESFramework.csproj"
+            "F:\\EsTest\\ESFramework\\ESFramework.csproj": {
+              "projectPath": "F:\\EsTest\\ESFramework\\ESFramework.csproj"
             }
           }
         }

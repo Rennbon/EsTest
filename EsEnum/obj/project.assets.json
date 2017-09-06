@@ -3574,11 +3574,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\demo\\EsTest\\EsEnum\\EsEnum.csproj",
+      "projectUniqueName": "F:\\EsTest\\EsEnum\\EsEnum.csproj",
       "projectName": "EsEnum",
-      "projectPath": "D:\\demo\\EsTest\\EsEnum\\EsEnum.csproj",
+      "projectPath": "F:\\EsTest\\EsEnum\\EsEnum.csproj",
       "packagesPath": "C:\\Users\\Rennbon\\.nuget\\packages\\",
-      "outputPath": "D:\\demo\\EsTest\\EsEnum\\obj\\",
+      "outputPath": "F:\\EsTest\\EsEnum\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3592,7 +3592,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://proget.fe.mingdao.net/nuget/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

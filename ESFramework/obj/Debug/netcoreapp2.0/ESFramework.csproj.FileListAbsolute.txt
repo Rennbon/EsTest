@@ -27,7 +27,6 @@ D:\demo\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.pdb
 F:\EsTest\ESFramework\bin\Debug\netcoreapp2.0\ESFramework.deps.json
 F:\EsTest\ESFramework\bin\Debug\netcoreapp2.0\ESFramework.dll
 F:\EsTest\ESFramework\bin\Debug\netcoreapp2.0\ESFramework.pdb
-F:\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.csprojResolveAssemblyReference.cache
 F:\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.csproj.CoreCompileInputs.cache
 F:\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.AssemblyInfoInputs.cache
 F:\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.AssemblyInfo.cs

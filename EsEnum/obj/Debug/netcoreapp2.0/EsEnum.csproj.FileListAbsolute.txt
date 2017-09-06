@@ -27,7 +27,6 @@ D:\demo\EsTest\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.csprojResolveAssemblyRefere
 F:\EsTest\EsEnum\bin\Debug\netcoreapp2.0\EsEnum.deps.json
 F:\EsTest\EsEnum\bin\Debug\netcoreapp2.0\EsEnum.dll
 F:\EsTest\EsEnum\bin\Debug\netcoreapp2.0\EsEnum.pdb
-F:\EsTest\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.csprojResolveAssemblyReference.cache
 F:\EsTest\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.csproj.CoreCompileInputs.cache
 F:\EsTest\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.AssemblyInfoInputs.cache
 F:\EsTest\EsEnum\obj\Debug\netcoreapp2.0\EsEnum.AssemblyInfo.cs

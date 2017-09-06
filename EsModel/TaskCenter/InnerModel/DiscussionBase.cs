@@ -7,6 +7,9 @@ using System.Text;
 
 namespace EsEntity.TaskCenter.InnerModel
 {
+    /// <summary>
+    /// 讨论实体
+    /// </summary>
     public class DiscussionBase : EntityBase
     {
         [Keyword]

@@ -6,14 +6,10 @@ namespace EsEnum.TaskCenter
 {
     public enum DiscussionMethodEnum
     {
-        //Add = 1,
-        //Delete = 2,
-
-
-        Set_FileType =3,
+        Set_FileType =1,
         
-        Pull_Attachments=4,
-        Push_Attachments=5,
+        Pull_Attachments=2,
+        Push_Attachments=3,
 
     }
 }

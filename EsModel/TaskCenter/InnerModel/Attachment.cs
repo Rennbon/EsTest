@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 
 namespace EsEntity.TaskCenter.InnerModel
 {
+    /// <summary>
+    /// 附件实体
+    /// </summary>
     public class Attachment
     {
         [Keyword]

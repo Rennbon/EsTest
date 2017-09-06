@@ -24,4 +24,3 @@ D:\demo\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.AssemblyInfoInput
 D:\demo\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.AssemblyInfo.cs
 D:\demo\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.dll
 D:\demo\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.pdb
-D:\demo\EsTest\ESFramework\obj\Debug\netcoreapp2.0\ESFramework.csprojResolveAssemblyReference.cache

@@ -7,6 +7,9 @@ using System.Text;
 
 namespace EsEntity.TaskCenter
 {
+    /// <summary>
+    /// 任务讨论
+    /// </summary>
     [ElasticsearchType(Name = EsSysConfig.TypeNameTaskDiscussion, IdProperty = nameof(DiscussionId))]
     public class TaskDiscussion : InnerModel.DiscussionBase
     {

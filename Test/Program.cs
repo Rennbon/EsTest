@@ -8,19 +8,20 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            TaskCenterBusiness.Instance.CreateIndex() ;
+            #region TASKCENTER
+            //TaskCenterBusiness.Instance.CreateIndex() ;
             #region addtask
             List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>();
             tasks.Add(new EsEntity.TaskCenter.Task
             {
                 AppID = string.Empty,
-                ChargeAccountID = "wo",
+                ChargeAccountId = "wo",
                 CompleteTime = DateTime.Now,
                 Content = "我是谁谁是我",
                 CreateAccountID = "wo",
                 CreateTime = DateTime.Now,
                 EndTime = DateTime.Now.AddDays(30),
-                FolderID = "f1",
+                FolderId = "f1",
                 FolderName = "这是一个项目",
                 IsDeleted = false,
                 Keywords = new List<string> {
@@ -33,7 +34,7 @@ namespace Test
                     "ni",
                     "ta"
                 },
-                ParentID = string.Empty,
+                ParentId = string.Empty,
                 ProjectId = string.Empty,
                 StartTime = DateTime.Now.AddDays(-10),
                 Status = 1,
@@ -45,13 +46,13 @@ namespace Test
             tasks.Add(new EsEntity.TaskCenter.Task
             {
                 AppID = string.Empty,
-                ChargeAccountID = "wo",
+                ChargeAccountId = "wo",
                 CompleteTime = DateTime.Now,
                 Content = "我是谁谁是我",
                 CreateAccountID = "wo",
                 CreateTime = DateTime.Now,
                 EndTime = DateTime.Now.AddDays(30),
-                FolderID = "f1",
+                FolderId = "f1",
                 FolderName = "这是一个项目",
                 IsDeleted = false,
                 Keywords = new List<string> {
@@ -64,7 +65,7 @@ namespace Test
                     "ni",
                     "ta"
                 },
-                ParentID = string.Empty,
+                ParentId = string.Empty,
                 ProjectId = string.Empty,
                 StartTime = DateTime.Now.AddDays(-10),
                 Status = 1,
@@ -97,14 +98,24 @@ namespace Test
                 {
                     TaskId = "t2",
                     TaskName = "任务改22222",
-                    MemberIds = new List<string> { "1","3","5"}
+                    MemberIds = new List<string> { "1", "3", "5" }
                 }
             });
             //TaskCenterBusiness.Instance.UpdateTasks(metheds);
             #endregion updateTask
+            TaskCenterBusiness.Instance.SSSS();
 
+            //TaskCenterBusiness.Instance.UnlockFolderAndTasks("f1");
+            #endregion TASKCENTER
+            // EsBusiness.Test.Instance.CreateIndex();
+            //EsBusiness.Test.Instance.AddTests(new List<EsEntity.Test.TestModel> { new EsEntity.Test.TestModel() {
+            //    Id="test1",
+            //    Name="测试1"
 
-            TaskCenterBusiness.Instance.RemoveTasksFromFolder("f1");
+            //},new EsEntity.Test.TestModel{
+            //    Id ="test2",
+            //    Name="测试2"
+            //} });
         }
     }
 }

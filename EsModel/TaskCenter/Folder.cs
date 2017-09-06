@@ -7,6 +7,9 @@ using System.Text;
 
 namespace EsEntity.TaskCenter
 {
+    /// <summary>
+    /// 项目实体
+    /// </summary>
     [ElasticsearchType(Name = EsSysConfig.TypeNameFolder, IdProperty = nameof(FolderID))]
     public class Folder : EntityBase
     {

@@ -8,6 +8,9 @@ using System.Text;
 
 namespace EsEntity.TaskCenter
 {
+    /// <summary>
+    /// 任务实体
+    /// </summary>
     [ElasticsearchType(Name = EsSysConfig.TypeNameTask, IdProperty = nameof(TaskId))]
     public class Task : EntityBase
     {
@@ -28,7 +31,7 @@ namespace EsEntity.TaskCenter
         /// </summary>
         [Keyword(EagerGlobalOrdinals = true)]
         [JsonProperty("fid")]
-        public string FolderID { get; set; }
+        public string FolderId { get; set; }
         /// <summary>
         /// 项目名
         /// </summary>
@@ -41,7 +44,7 @@ namespace EsEntity.TaskCenter
         /// </summary>
         [Keyword]
         [JsonProperty("parentid")]
-        public string ParentID { get; set; }
+        public string ParentId { get; set; }
 
         /// <summary>
         /// 任务详情
@@ -68,7 +71,7 @@ namespace EsEntity.TaskCenter
         /// </summary>
         [Keyword]
         [JsonProperty("chargeaid")]
-        public string ChargeAccountID { get; set; }
+        public string ChargeAccountId { get; set; }
         /// <summary>
         /// 任务状态
         /// </summary>

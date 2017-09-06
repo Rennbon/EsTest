@@ -32,7 +32,7 @@ namespace EsBusiness.Helper
                         operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.MemberIds, pushMemberIds.Distinct().ToList());
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_Charge:
-                        operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.ChargeAccountID, item.Task.ChargeAccountID);
+                        operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.ChargeAccountId, item.Task.ChargeAccountId);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_CompleteTime:
                         operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.CompleteTime, item.Task.CompleteTime);
@@ -47,7 +47,7 @@ namespace EsBusiness.Helper
                         operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.EndTime, item.Task.EndTime);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_FolderId:
-                        operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.FolderID, item.Task.FolderID);
+                        operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.FolderId, item.Task.FolderId);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_FolderName:
                         operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.FolderName, item.Task.FolderName);
@@ -56,7 +56,7 @@ namespace EsBusiness.Helper
                         operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.Keywords, item.Task.Keywords);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_ParentId:
-                        operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.ParentID, item.Task.ParentID);
+                        operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.ParentId, item.Task.ParentId);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_StartTime:
                         operation.Doc = EntitySerializeExtends<Task>.DeserializeObjectToSet(o => o.StartTime, item.Task.StartTime);

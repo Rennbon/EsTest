@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace ESFramework.Estensions
 {
+    /// <summary>
+    /// 只获取指定key生成json
+    /// </summary>
     public class IncludeContractResolver : DefaultContractResolver
     {
         IEnumerable<string> lstInclude;

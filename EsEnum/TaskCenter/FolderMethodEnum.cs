@@ -6,17 +6,15 @@ namespace EsEnum.TaskCenter
 {
     public enum FolderMethodEnum
     {
-        //Add = 1,
-        //Delete = 2,
-        Set_UpdateTime = 3,
-        Set_CreateAccountId = 4,
+        Set_UpdateTime = 1,
+        Set_CreateAccountId = 2,
 
-        Set_FolderName = 5,
-        Set_Visibility = 6,
-        Set_GroupIds = 7,
-        Set_Content = 8,
+        Set_FolderName = 3,
+        Set_Visibility = 4,
+        Set_GroupIds = 5,
+        Set_Content = 6,
 
-        Pull_MemberIds = 9,
-        Push_MemberIds = 10,
+        Pull_MemberIds = 7,
+        Push_MemberIds = 8,
     }
 }

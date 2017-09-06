@@ -120,7 +120,7 @@ namespace EsBusiness
         public ReturnResult RemoveTasksFromFolder(string folderId)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
-
+    
             var obj = EntitySerializeExtends<Task>.DeserializeObjectToSet(new TypeFeild<Task>(o => o.MemberIds, new List<string> { "123" }), new TypeFeild<Task>(o => o.Keywords, new List<string> { "123" }));
             var result = client.UpdateByQuery<Task>(o => o
             .Query(q => q
@@ -130,17 +130,16 @@ namespace EsBusiness
                         )
                     )
                 )
-            //.DocvalueFields(fd => fd.FolderID, fd => fd.FolderName, fd => fd.UpdateTime)
-            .
+            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
             .Script(script => script
-                .Inline("ctx._source.fid ='';ctx._source.fname= '';")
-
-            ));
+                //.Inline("ctx._source.fid ='';ctx._source.fname= '';")
+                .Inline(Helper.GlobalHelper<Task>.GetScriptInline("ctx._source", new TypeFeild<Task>(tf => tf.FolderID, string.Empty), new TypeFeild<Task>(tf => tf.FolderName, string.Empty))
+            )));
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
             }
-            return re;
+            return re;     
         }
 
 

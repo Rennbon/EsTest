@@ -50,7 +50,7 @@ namespace ESFramework.Estensions
         /// <param name="field"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static object DeserializeObjectToSet(params TypeFeild<T>[] typeFeilds )
+        public static object DeserializeObjectToSet(params TypeFeild<T>[] typeFeilds)
         {
             List<string> propertiesInculde = new List<string>();
             Type o = typeof(T);//加载类型

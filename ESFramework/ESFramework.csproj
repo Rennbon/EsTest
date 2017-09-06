@@ -5,13 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NEST" Version="5.5.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+    <Compile Remove="Estensions\ExtendsInterface\**" />
+    <EmbeddedResource Remove="Estensions\ExtendsInterface\**" />
+    <None Remove="Estensions\ExtendsInterface\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Estensions\ExtendsInterface\" />
+    <PackageReference Include="NEST" Version="5.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
 
 </Project>

@@ -20,7 +20,7 @@ namespace ESFramework.Estensions
         /// <param name="field"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static object DeserializeObjectToSet<TField>(Expression<Func<T, TField>> field, TField value)
+        public static string SerializeObject<TField>(Expression<Func<T, TField>> field, TField value)
         {
             string property = string.Empty;
             var body = field.Body as MemberExpression;
@@ -41,7 +41,7 @@ namespace ESFramework.Estensions
                 ContractResolver = new IncludeContractResolver(propertiesInculde),
 
             });
-            return JsonConvert.DeserializeObject(jsonString);
+            return jsonString; 
         }
         /// <summary>
         /// 序列化指定对象的指定单个属性（主要用于es update doc）
@@ -50,7 +50,7 @@ namespace ESFramework.Estensions
         /// <param name="field"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static object DeserializeObjectToSet(params TypeFeild<T>[] typeFeilds)
+        public static string SerializeObject(params TypeFeild<T>[] typeFeilds)
         {
             List<string> propertiesInculde = new List<string>();
             Type o = typeof(T);//加载类型
@@ -75,7 +75,7 @@ namespace ESFramework.Estensions
                 ContractResolver = new IncludeContractResolver(propertiesInculde),
 
             });
-            return JsonConvert.DeserializeObject(jsonString);
+            return jsonString;// JsonConvert.DeserializeObject(jsonString);
         }
     }
 }

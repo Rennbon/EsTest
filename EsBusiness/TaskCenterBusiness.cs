@@ -107,7 +107,7 @@ namespace EsBusiness
                )
            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
            .Script(script => script
-                .Inline(Helper.GlobalHelper<Task>.GetScriptInline("ctx._source", new TypeFeild<Task>(tf => tf.IsDeleted, true))
+                .Inline(Helper.GlobalHelper<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.IsDeleted, true))
             )));
             if (result.IsValid)
             {
@@ -134,7 +134,7 @@ namespace EsBusiness
                )
            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
            .Script(script => script
-                .Inline(Helper.GlobalHelper<Task>.GetScriptInline("ctx._source", new TypeFeild<Task>(tf => tf.FolderName, folderName))
+                .Inline(Helper.GlobalHelper<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderName, folderName))
             )));
             if (result.IsValid)
             {
@@ -163,7 +163,7 @@ namespace EsBusiness
                 )
             .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
             .Script(script => script
-                .Inline(Helper.GlobalHelper<Task>.GetScriptInline("ctx._source", new TypeFeild<Task>(tf => tf.FolderId, string.Empty), new TypeFeild<Task>(tf => tf.FolderName, string.Empty))
+                .Inline(Helper.GlobalHelper<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderId, string.Empty), new TypeFeild<Task>(tf => tf.FolderName, string.Empty))
             )));
             if (result.IsValid)
             {

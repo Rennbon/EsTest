@@ -49,20 +49,20 @@ namespace EsEntity.TaskCenter
         /// <summary>
         /// 任务详情
         /// </summary>
-        [Text( Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [Text(Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
         [JsonProperty("content")]
         public string Content { get; set; }
         /// <summary>
         /// 开始时间
         /// </summary>
-        [Date( Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
         [JsonProperty("starttime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime StartTime { get; set; }
         /// <summary>
         /// 截止时间
         /// </summary>
-        [Date( Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
         [JsonProperty("endtime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime EndTime { get; set; }
@@ -81,7 +81,7 @@ namespace EsEntity.TaskCenter
         /// <summary>
         /// 完成时间
         /// </summary>
-        [Date( Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         [JsonProperty("completetime")]
         public DateTime CompleteTime { get; set; }
@@ -95,9 +95,15 @@ namespace EsEntity.TaskCenter
         /// <summary>
         /// 关键字，不存任务名
         /// </summary>
-        [Text( Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
+        [Text(Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
         [JsonProperty("kw")]
         public List<string> Keywords { set; get; }
 
+        /// <summary>
+        /// 附件集合
+        /// </summary>
+        [Object]
+        [JsonProperty("atts")]
+        public List<Attachment> Attachments { set; get; }
     }
 }

@@ -55,14 +55,14 @@ namespace EsEntity.TaskCenter
         /// <summary>
         /// 开始时间
         /// </summary>
-        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss.SSS")]
         [JsonProperty("starttime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime StartTime { get; set; }
         /// <summary>
         /// 截止时间
         /// </summary>
-        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss.SSS")]
         [JsonProperty("endtime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime EndTime { get; set; }
@@ -81,7 +81,7 @@ namespace EsEntity.TaskCenter
         /// <summary>
         /// 完成时间
         /// </summary>
-        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss.SSS")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         [JsonProperty("completetime")]
         public DateTime CompleteTime { get; set; }
@@ -104,6 +104,6 @@ namespace EsEntity.TaskCenter
         /// </summary>
         [Object]
         [JsonProperty("atts")]
-        public List<Attachment> Attachments { set; get; }
+        public List<InnerModel.Attachment> Attachments { set; get; }
     }
 }

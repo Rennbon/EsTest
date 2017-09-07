@@ -9,7 +9,7 @@ namespace EsEntity
     {
         public CustomDateTimeConverter()
         {
-            DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+            DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
         }
     }
 }

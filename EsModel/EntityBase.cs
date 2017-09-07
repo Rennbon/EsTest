@@ -14,11 +14,11 @@ namespace EsEntity
         [Boolean]
         [JsonProperty("isdel")]
         public bool IsDeleted { get; set; }
-        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss.SSS")]
         [JsonProperty("utime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime UpdateTime { get; set; }
-        [Date(Format = "yyyy-MM-dd HH:mm:ss")]
+        [Date(Format = "yyyy-MM-dd HH:mm:ss.SSS")]
         [JsonProperty("ctime")]
         [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime CreateTime { get; set; }

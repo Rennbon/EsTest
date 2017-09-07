@@ -14,5 +14,8 @@ namespace ESFramework
         public const string TypeNameFolder = "folder";
         public const string TypeNameTaskDiscussion = "taskDisc";
         public const string TypeNameFolderDiscussion = "folderDisc";
+
+        public const string DateTimeFormat1 = "yyyy-MM-dd HH:mm:ss.SSSZ";
+
     }
 }

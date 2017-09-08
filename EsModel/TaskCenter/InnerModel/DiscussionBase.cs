@@ -10,6 +10,7 @@ namespace EsEntity.TaskCenter.InnerModel
     /// <summary>
     /// 讨论实体
     /// </summary>
+    [Serializable]
     public class DiscussionBase : EntityBase
     {
         [Keyword]
@@ -78,7 +79,7 @@ namespace EsEntity.TaskCenter.InnerModel
             }
         }
         [Object]
-        [JsonProperty("attachments")]
+        [JsonProperty("atts")]
         public List<Attachment> Attachments { set; get; }
         private string _discussionId;
         private string _sourceId;

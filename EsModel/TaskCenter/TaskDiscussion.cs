@@ -11,6 +11,7 @@ namespace EsEntity.TaskCenter
     /// 任务讨论
     /// </summary>
     [ElasticsearchType(Name = EsSysConfig.TypeNameTaskDiscussion, IdProperty = nameof(DiscussionId))]
+    [Serializable]
     public class TaskDiscussion : InnerModel.DiscussionBase
     {
         

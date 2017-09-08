@@ -34,14 +34,23 @@ namespace ESFramework.Estensions
             var t = (T)obj;
             var fieldPropertyInfo = o.GetProperty(property);
             fieldPropertyInfo.SetValue(t, value);
-            string[] propertiesInculde = new string[1] { property };
+
+
+
+            List<string> propertiesInculde = new List<string>() { property };
+            foreach (var item in body.Type.GenericTypeArguments)
+            {
+                foreach (var i in item.GetProperties())
+                {
+                    propertiesInculde.Add(i.Name);
+                }
+            }
             string jsonString = JsonConvert.SerializeObject(t, Formatting.None, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 ContractResolver = new IncludeContractResolver(propertiesInculde),
-
             });
-            return jsonString; 
+            return jsonString;
         }
         /// <summary>
         /// 序列化指定对象的指定单个属性（主要用于es update doc）
@@ -73,7 +82,6 @@ namespace ESFramework.Estensions
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 ContractResolver = new IncludeContractResolver(propertiesInculde),
-
             });
             return jsonString;// JsonConvert.DeserializeObject(jsonString);
         }

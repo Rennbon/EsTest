@@ -10,6 +10,7 @@ namespace EsEntity.TaskCenter
     /// 项目讨论
     /// </summary>
     [ElasticsearchType(Name = EsSysConfig.TypeNameFolderDiscussion, IdProperty = nameof(DiscussionId))]
+    [Serializable]
     public class FolderDiscussion : InnerModel.DiscussionBase
     {
     }

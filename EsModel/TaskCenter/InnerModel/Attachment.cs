@@ -9,13 +9,14 @@ namespace EsEntity.TaskCenter.InnerModel
     /// <summary>
     /// 附件实体
     /// </summary>
+    [Serializable]
     public class Attachment
     {
         [Keyword]
         [JsonProperty("fileId")]
         public string FileId { set; get; }
         [Text(Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
-        [JsonProperty("content")]
-        public string Content { set; get; }
+        [JsonProperty("attContent")]
+        public string AttContent { set; get; }
     }
 }

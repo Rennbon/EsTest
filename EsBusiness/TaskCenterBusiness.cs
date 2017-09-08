@@ -35,10 +35,41 @@ namespace EsBusiness
         }
         public void SSSS()
         {
-           var result = client.MultiSearch(ms => ms
-                .Search<Task>(indexName, o =>o.Index(indexName).Query(q => q.Term(t => t.Field(f => f.TaskId == "t1"))))
-                .Search<EsEntity.Test.TestModel>("test", o =>o.Index("test").Query(q => q.Term(t => t.Field(f => f.Id == "test2"))))
-                );
+            var aaa = client.Search<Task>(sq => sq.Source(include => include.Includes(ics => ics.Fields(f => f.Attachments))));
+            //var result = client.MultiSearch(ms => ms
+            //     .Search<Task>(indexName, o => o.Index(indexName).Query(q => q.Term(t => t.Field(f => f.TaskId == "t1"))))
+            //     .Search<EsEntity.Test.TestModel>("test", o => o.Index("test").Query(q => q.Term(t => t.Field(f => f.Id == "test2"))))
+            //     );
+        }
+
+        public ReturnResult AddAttachmentIntoTask(string taskId, List<string> list)
+        {
+
+            //var ccc = client.Search<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId))))));
+            ReturnResult re = new ReturnResult(ResultCode.Error);
+            var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
+            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
+            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtParam(sp => sp.Keywords, list))
+             );
+            if (result.IsValid)
+            {
+                re.code = ResultCode.Success;
+            }
+            return re;
+        }
+        public ReturnResult AddAttachmentIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
+        {
+            //var ccc = client.Search<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId))))));
+            ReturnResult re = new ReturnResult(ResultCode.Error);
+            var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
+            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
+            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtParam(sp => sp.Attachments, list)
+             ));
+            if (result.IsValid)
+            {
+                re.code = ResultCode.Success;
+            }
+            return re;
         }
 
         /// <summary>
@@ -50,7 +81,11 @@ namespace EsBusiness
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
             var tidsNeedSearch = methods.Where(o => o.Methed == TaskMethodEnum.Pull_MemberIds || o.Methed == TaskMethodEnum.Push_MemberIds).Select(o => o.Task.TaskId).ToList();
-            var tasks = client.GetMany<Task>(tidsNeedSearch).ToList().Select(o => o.Source);
+            //var tasks = client.GetMany<Task>(tidsNeedSearch).ToList().Select(o => o.Source);
+            var tasks = client.Search<Task>(sq => sq
+            .Source(include => include.Includes(ics => ics.Fields(f => f.Attachments)))
+            .Query(q => q.Term(t => t.Field(f => tidsNeedSearch.Contains(f.TaskId))))
+            ).Documents;
             var bulkRequest = Helper.TaskCenterHelper.GetUpdateBulkRequest(methods, tasks);
             var result = client.Bulk(bulkRequest);
             if (result.IsValid)
@@ -107,7 +142,7 @@ namespace EsBusiness
                )
            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
            .Script(script => script
-                .Inline(Helper.GlobalHelper<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.IsDeleted, true))
+                .Inline(ExExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.IsDeleted, true))
             )));
             if (result.IsValid)
             {
@@ -134,7 +169,7 @@ namespace EsBusiness
                )
            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
            .Script(script => script
-                .Inline(Helper.GlobalHelper<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderName, folderName))
+                .Inline(ExExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderName, folderName))
             )));
             if (result.IsValid)
             {
@@ -163,7 +198,7 @@ namespace EsBusiness
                 )
             .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
             .Script(script => script
-                .Inline(Helper.GlobalHelper<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderId, string.Empty), new TypeFeild<Task>(tf => tf.FolderName, string.Empty))
+                .Inline(ExExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderId, string.Empty), new TypeFeild<Task>(tf => tf.FolderName, string.Empty))
             )));
             if (result.IsValid)
             {

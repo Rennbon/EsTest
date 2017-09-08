@@ -18,8 +18,7 @@ namespace ESFramework.Estensions
         }
         protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
         {
-            //var a = base.CreateProperties(type, memberSerialization).ToList().First();
-            return base.CreateProperties(type, memberSerialization).ToList().FindAll(p => lstInclude.Contains(p.UnderlyingName));
+            return base.CreateProperties(type, memberSerialization).Where(p => lstInclude.Contains(p.UnderlyingName)).ToList();
         }
     }
 }

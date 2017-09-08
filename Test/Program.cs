@@ -12,22 +12,31 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             //string a = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.SSS");
             //IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
             ////这里使用自定义日期格式，如果不使用的话，默认是ISO8601格式  
             //timeConverter.DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
             //string serialStr = JsonConvert.SerializeObject(DateTime.Now, Formatting.Indented, timeConverter);
 
+            //TaskCenterBusiness.Instance.AddAttachmentIntoTask("t2", new List<string> { "yige kw", "还有kw", "无语了" });
+            TaskCenterBusiness.Instance.AddAttachmentIntoTask("t2", new List<EsEntity.TaskCenter.InnerModel.Attachment> { new EsEntity.TaskCenter.InnerModel.Attachment
+                    {
+                        FileId = DateTime.Now.Millisecond.ToString(),
+                        Content = GetRandomStr(500)
+                    }
+        });
+            TaskCenterBusiness.Instance.SSSS();
 
-            //return;
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            return;
+     
             #region TASKCENTER
             TaskCenterBusiness.Instance.CreateIndex();
             //return;
             #region addtask
             List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>();
             int count = 0;
-            for (int p = 0; p < 200; p++)
+            for (int p = 0; p < 2000; p++)
             {
                 count++;
                 var task = new EsEntity.TaskCenter.Task
@@ -64,7 +73,7 @@ namespace Test
                 task.Attachments = new List<EsEntity.TaskCenter.InnerModel.Attachment> { };
                 //for (var n = 0; n < 150; n++)
                 //{
-                Parallel.For(1, 3, n =>
+                Parallel.For(1, 100, n =>
                 {
                     EsEntity.TaskCenter.InnerModel.Attachment att = new EsEntity.TaskCenter.InnerModel.Attachment
                     {

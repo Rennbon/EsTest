@@ -50,7 +50,7 @@ namespace EsBusiness.EsBase
         public static Func<ScriptDescriptor, IScript> GetScriptInlineToAddFisrtParam<TField>(Expression<Func<T, TField>> field, TField value, string prefix = "ctx._source") where TField : IEnumerable
         {
             //"script": {
-            //    "inline": "ctx._source.atts.add(params.att)",
+            //    "inline": "if (!ctx._source.atts.contains(params.att)){ ctx._source.atts.add(params.att)}",
             //    "params":{ "att":{ "fileId":"10002","attContent":"123"} }
             //}
             var v = value.GetEnumerator();
@@ -65,7 +65,7 @@ namespace EsBusiness.EsBase
             object paramsValue = null;
             foreach (var item in obj)
             {
-                sb.Append($"{prefix}.{item.Key}.add(params.value)");
+                sb.Append($"if(!{prefix}.{item.Key}.contains(params.value)){{ {prefix}.{item.Key}.add(params.value)}}");
                 paramsValue = item.Value.First;
                 break;
             }

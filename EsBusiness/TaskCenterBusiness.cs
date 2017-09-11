@@ -59,6 +59,23 @@ namespace EsBusiness
         }
         public ReturnResult AddAttachmentIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {
+            ReturnResult re = new ReturnResult(ResultCode.Error);
+            int strlength = list.First().AttContent.Length;
+            var t1 = DateTime.Now;
+            var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
+            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
+            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtParam(sp => sp.Attachments, list)
+             ));
+            var t2 = DateTime.Now;
+            if (result.IsValid)
+            {
+                re.code = ResultCode.Success;
+            }
+            ESFramework.Log.WriteLoacl.WriteFile($"taskid:{taskId};result:{result.IsValid},time-consuming:{(t2 - t1).TotalMilliseconds},length:{strlength}", "es/log1.txt");
+            return re;
+        }
+        public ReturnResult RemoveAttachmentIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
+        {
             list = new List<EsEntity.TaskCenter.InnerModel.Attachment> { new EsEntity.TaskCenter.InnerModel.Attachment {
                 FileId = "981",
                 AttContent ="隐兆照丁暑落悲镑华中网何猪昔穷偷,"
@@ -74,7 +91,6 @@ namespace EsBusiness
             }
             return re;
         }
-
         /// <summary>
         /// 单个任务修改指定字段
         /// </summary>

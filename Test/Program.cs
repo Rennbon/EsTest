@@ -21,12 +21,21 @@ namespace Test
             //string serialStr = JsonConvert.SerializeObject(DateTime.Now, Formatting.Indented, timeConverter);
 
             //TaskCenterBusiness.Instance.AddAttachmentIntoTask("t2", new List<string> { "yige kw", "还有kw", "无语了" });
-            TaskCenterBusiness.Instance.AddAttachmentIntoTask("t2", new List<EsEntity.TaskCenter.InnerModel.Attachment> { new EsEntity.TaskCenter.InnerModel.Attachment
+
+            Parallel.For(1, 5000, i =>
+            {
+                //for (int i = 0; i < 5000; i++)
+                //{
+                string name = "t" + new Random(DateTime.Now.Millisecond).Next(3, 20);
+                TaskCenterBusiness.Instance.AddAttachmentIntoTask(name, new List<EsEntity.TaskCenter.InnerModel.Attachment> { new EsEntity.TaskCenter.InnerModel.Attachment
                     {
                         FileId = DateTime.Now.Millisecond.ToString(),
-                        AttContent = GetRandomStr(2)
+                        AttContent = GetRandomStr(30)
                     }
             });
+                //}
+            });
+
             TaskCenterBusiness.Instance.SSSS();
 
             return;

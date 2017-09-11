@@ -59,11 +59,14 @@ namespace EsBusiness
         }
         public ReturnResult AddAttachmentIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {
-            //var ccc = client.Search<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId))))));
+            list = new List<EsEntity.TaskCenter.InnerModel.Attachment> { new EsEntity.TaskCenter.InnerModel.Attachment {
+                FileId = "981",
+                AttContent ="隐兆照丁暑落悲镑华中网何猪昔穷偷,"
+            } };
             ReturnResult re = new ReturnResult(ResultCode.Error);
             var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
             .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
-            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtParam(sp => sp.Attachments, list)
+            .Script(ExExtends<Task>.GetScriptInlineToRemoveFisrtParam(sp => sp.Attachments, list)
              ));
             if (result.IsValid)
             {

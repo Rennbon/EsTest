@@ -49,13 +49,10 @@ namespace EsBusiness.EsBase
 
         public static Func<ScriptDescriptor, IScript> GetScriptInlineToAddFisrtParam<TField>(Expression<Func<T, TField>> field, TField value, string prefix = "ctx._source") where TField : IEnumerable
         {
-            //{
-            //"script" : "for (int i = 0; i < ctx.source.views.size(); i++) {if(ctx.source.views[i].user == view.user){ctx.source.views[i].count++;} else {ctx.source.views.add(view)}}",
-            //"lang": "groovy",
-            //"params": {
-            //"view": {"user":"tt99", "count":1}
-            //ctx._source.atts.add()
-
+            //"script": {
+            //    "inline": "ctx._source.atts.add(params.att)",
+            //    "params":{ "att":{ "fileId":"10002","attContent":"123"} }
+            //}
             var v = value.GetEnumerator();
             if (!v.MoveNext())
             {
@@ -64,15 +61,48 @@ namespace EsBusiness.EsBase
             var value1 = JsonConvert.SerializeObject(v.Current);
             JObject obj = JObject.Parse(EntitySerializeExtends<T>.SerializeObject<TField>(field, value));
             StringBuilder sb = new StringBuilder();
-            Object addValue = null;
+
+            object paramsValue = null;
             foreach (var item in obj)
             {
-                sb.Append($"{prefix}.{item.Key}.add(a);");
-                addValue = item.Value;
+                sb.Append($"{prefix}.{item.Key}.add(params.value)");
+                paramsValue = item.Value.First;
                 break;
             }
+
             var dic = new Dictionary<string, object>();
-            dic.Add("a", addValue);
+            dic.Add("value", paramsValue);
+            Func<ScriptDescriptor, IScript> result = sp => sp
+             .Inline(sb.ToString())
+             .Params(dic);
+            return result;
+        }
+
+        public static Func<ScriptDescriptor, IScript> GetScriptInlineToRemoveFisrtParam<TField>(Expression<Func<T, TField>> field, TField value, string prefix = "ctx._source") where TField : IEnumerable
+        {
+            //"script": {
+            //    "inline": "ctx._source.atts.remove(ctx._source.atts.indexOf(params.att))",
+            //    "params":{ "att":{ "fileId":"10002","attContent":"123"} }
+            //}
+            var v = value.GetEnumerator();
+            if (!v.MoveNext())
+            {
+                throw new NullReferenceException($"{nameof(TField)}不能为空");
+            }
+            var value1 = JsonConvert.SerializeObject(v.Current);
+            JObject obj = JObject.Parse(EntitySerializeExtends<T>.SerializeObject<TField>(field, value));
+            StringBuilder sb = new StringBuilder();
+            object paramsValue = null;
+            foreach (var item in obj)
+            {
+                var a = item.Value;
+                sb.Append($"{prefix}.{item.Key}.remove({prefix}.{item.Key}.indexOf(params.value))");
+                paramsValue = item.Value.First;
+                break;
+            }
+
+            var dic = new Dictionary<string, object>();
+            dic.Add("value", paramsValue);
             Func<ScriptDescriptor, IScript> result = sp => sp
              .Inline(sb.ToString())
              .Params(dic);

@@ -12,6 +12,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            TaskCenterBusiness.Instance.CreateIndex();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             //string a = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.SSS");
             //IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
@@ -23,20 +24,20 @@ namespace Test
             TaskCenterBusiness.Instance.AddAttachmentIntoTask("t2", new List<EsEntity.TaskCenter.InnerModel.Attachment> { new EsEntity.TaskCenter.InnerModel.Attachment
                     {
                         FileId = DateTime.Now.Millisecond.ToString(),
-                        Content = GetRandomStr(500)
+                        AttContent = GetRandomStr(2)
                     }
-        });
+            });
             TaskCenterBusiness.Instance.SSSS();
 
             return;
-     
+
             #region TASKCENTER
-            TaskCenterBusiness.Instance.CreateIndex();
+            //TaskCenterBusiness.Instance.CreateIndex();
             //return;
             #region addtask
             List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>();
             int count = 0;
-            for (int p = 0; p < 2000; p++)
+            for (int p = 0; p < 3; p++)
             {
                 count++;
                 var task = new EsEntity.TaskCenter.Task
@@ -78,7 +79,7 @@ namespace Test
                     EsEntity.TaskCenter.InnerModel.Attachment att = new EsEntity.TaskCenter.InnerModel.Attachment
                     {
                         FileId = DateTime.Now.Millisecond.ToString(),
-                        Content = GetRandomStr(5000)
+                        AttContent = GetRandomStr(30)
                     };
                     task.Attachments.Add(att);
                 });
@@ -136,7 +137,7 @@ namespace Test
 
             Parallel.For(1, count, i =>
             {
-                sb.Append(GetRandomChinese(new Random().Next(10, 100)) + ",");
+                sb.Append(GetRandomChinese(new Random().Next(10, 2000)) + ",");
             });
             return sb.ToString();
         }

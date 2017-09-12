@@ -43,11 +43,16 @@ namespace EsBusiness
             //     );
         }
 
-        public ReturnResult SearchTasks()
-        {
-            return null;
+        //public ReturnResult SearchTasks(string currentAId, List<string> relationAId,string keyword,string projectId,bool isPaid,int pageIndex,int pageSize,DateTime? startTime,DateTime? endTime)
+        //{
+        //    var result = client.Search<Task>(o => o
+        //    .Source(source => source.Includes(include => include.Fields(field => field.CreateAccountID, field => field.TaskName, field => field.Content, field => field.ProjectId, field => field.CreateTime)))
+        //   .Query(
+                
+        //        )
+        //    );
 
-        }
+        //}
 
         public ReturnResult AddAttachmentsIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {

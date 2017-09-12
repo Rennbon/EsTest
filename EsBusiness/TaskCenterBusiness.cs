@@ -15,6 +15,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ESFramework.Estensions;
 using System.Linq.Expressions;
+using EsEntity.TaskCenter.InnerModel;
 
 namespace EsBusiness
 {
@@ -45,42 +46,24 @@ namespace EsBusiness
         public ReturnResult SearchTasks()
         {
             return null;
-         
+
         }
 
-        public ReturnResult AddAttachmentIntoTask(string taskId, List<string> list)
+        public ReturnResult AddAttachmentsIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {
-
-            //var ccc = client.Search<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId))))));
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
-            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
-            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Keywords, list))
-             );
+            //var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
+            //.Conflicts(Elasticsearch.Net.Conflicts.Proceed)
+            //.Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)
+            // ));
+            var result = client.Update<Task>(taskId, o => o.Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)));
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
             }
             return re;
         }
-        public ReturnResult AddAttachmentIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
-        {
-            ReturnResult re = new ReturnResult(ResultCode.Error);
-            int strlength = list.First().AttContent.Length;
-            var t1 = DateTime.Now;
-            var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
-            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
-            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)
-             ));
-            var t2 = DateTime.Now;
-            if (result.IsValid)
-            {
-                re.code = ResultCode.Success;
-            }
-            ESFramework.Log.WriteLoacl.WriteFile($"taskid:{taskId};result:{result.IsValid},time-consuming:{(t2 - t1).TotalMilliseconds},length:{strlength}", "es/log1.txt");
-            return re;
-        }
-        public ReturnResult RemoveTaskAttsInArray(string taskId, List<string> fileIds)
+        public ReturnResult RemoveAttachmentsInTask(string taskId, List<string> fileIds)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
             var bulkRequest = Helper.TaskCenterHelper.GetRemoveTaskAttsInArrayBulkRequest(taskId, fileIds);
@@ -91,6 +74,33 @@ namespace EsBusiness
             }
             return re;
         }
+        public ReturnResult AddTaskDiscussion(string taskId, TaskDiscussion disc)
+        {
+
+            ReturnResult re = new ReturnResult(ResultCode.Error);
+            //var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
+            //.Conflicts(Elasticsearch.Net.Conflicts.Proceed)
+            //.Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Discussions, new List<TaskDiscussion> { disc })
+            // ));
+            var result = client.Update<Task>(taskId,o=>o.Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Discussions, new List<TaskDiscussion> { disc })));
+            if (result.IsValid)
+            {
+                re.code = ResultCode.Success;
+            }
+            return re;
+        }
+        public ReturnResult RemoveTaskDiscussion(string taskId, string discId)
+        {
+            ReturnResult re = new ReturnResult(ResultCode.Error);
+            var bulkRequest = Helper.TaskCenterHelper.GetRemoveTaskAttsInArrayBulkRequest(taskId, new List<string> { discId });
+            var result = client.Update<Task>(taskId, o => o.Script(ExExtends<Task>.GetScriptInlineToRemoveFisrtElementById(sc => sc.Discussions.First().DiscussionId, discId)));
+            if (result.IsValid)
+            {
+                re.code = ResultCode.Success;
+            }
+            return re;
+        }
+
         /// <summary>
         /// 单个任务修改指定字段
         /// </summary>
@@ -102,7 +112,7 @@ namespace EsBusiness
             var tidsNeedSearch = methods.Where(o => o.Methed == TaskMethodEnum.Pull_MemberIds || o.Methed == TaskMethodEnum.Push_MemberIds).Select(o => o.Task.TaskId).ToList();
             //var tasks = client.GetMany<Task>(tidsNeedSearch).ToList().Select(o => o.Source);
             var tasks = client.Search<Task>(sq => sq
-            .Source(include => include.Includes(ics => ics.Fields(f => f.Attachments)))
+            .Source(include => include.Includes(ics => ics.Fields(f => f.MemberIds)))
             .Query(q => q.Term(t => t.Field(f => tidsNeedSearch.Contains(f.TaskId))))
             ).Documents;
             var bulkRequest = Helper.TaskCenterHelper.GetUpdateBulkRequest(methods, tasks);
@@ -121,14 +131,11 @@ namespace EsBusiness
         public ReturnResult AddTasks(List<Task> tasks)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            var t1 = DateTime.Now;
             var result = client.IndexMany<Task>(tasks);
-            var t2 = DateTime.Now;
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
             }
-            ESFramework.Log.WriteLoacl.WriteFile($"result:{result.IsValid},time-consuming:{(t2 - t1).TotalMilliseconds}", "es/addtask.txt");
             return re;
         }
         /// <summary>

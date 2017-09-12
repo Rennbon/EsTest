@@ -22,7 +22,7 @@ namespace Test
 
             //TaskCenterBusiness.Instance.AddAttachmentIntoTask("t2", new List<string> { "yige kw", "还有kw", "无语了" });
             //TaskCenterBusiness.Instance.SearchTasks();
-            TaskCenterBusiness.Instance.RemoveTaskAttsInArray("t3", new List<string> { "10002", "10003", "10004" });
+            TaskCenterBusiness.Instance.RemoveAttachmentsInTask("t3", new List<string> { "10002", "10003", "10004" });
 
             //Parallel.For(5000, 6000, i =>
             //{

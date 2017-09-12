@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ESFramework.Exceptions;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -11,8 +12,9 @@ namespace ESFramework.Estensions
     /// json序列化拓展
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class EntitySerializeExtends<T> where T : IESEntity
+    public class EntitySerializeExtends<T>
     {
+
         /// <summary>
         /// 序列化指定对象的指定单个属性（主要用于es update doc）
         /// </summary>
@@ -22,35 +24,39 @@ namespace ESFramework.Estensions
         /// <returns></returns>
         public static string SerializeObject<TField>(Expression<Func<T, TField>> field, TField value)
         {
-            string property = string.Empty;
-            var body = field.Body as MemberExpression;
-            if (body == null)
+            try
             {
-                throw new NullReferenceException("自定义EntitySerializeExtends方法，参数field.Body为空");
-            }
-            property = body.Member.Name;
-            Type o = typeof(T);//加载类型
-            object obj = Activator.CreateInstance(o, true);//根据类型创建实例
-            var t = (T)obj;
-            var fieldPropertyInfo = o.GetProperty(property);
-            fieldPropertyInfo.SetValue(t, value);
-
-
-
-            List<string> propertiesInculde = new List<string>() { property };
-            foreach (var item in body.Type.GenericTypeArguments)
-            {
-                foreach (var i in item.GetProperties())
+                string property = string.Empty;
+                var body = field.Body as MemberExpression;
+                if (body == null)
                 {
-                    propertiesInculde.Add(i.Name);
+                    throw new NullReferenceException("自定义EntitySerializeExtends方法，参数field.Body为空");
                 }
+                property = body.Member.Name;
+                Type o = typeof(T);//加载类型
+                object obj = Activator.CreateInstance(o, true);//根据类型创建实例
+                var t = (T)obj;
+                var fieldPropertyInfo = o.GetProperty(property);
+                fieldPropertyInfo.SetValue(t, value);
+                List<string> propertiesInculde = new List<string>() { property };
+                foreach (var item in body.Type.GenericTypeArguments)
+                {
+                    foreach (var i in item.GetProperties())
+                    {
+                        propertiesInculde.Add(i.Name);
+                    }
+                }
+                string jsonString = JsonConvert.SerializeObject(t, Formatting.None, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    ContractResolver = new IncludeContractResolver(propertiesInculde),
+                });
+                return jsonString;
             }
-            string jsonString = JsonConvert.SerializeObject(t, Formatting.None, new JsonSerializerSettings
+            catch (Exception ex)
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                ContractResolver = new IncludeContractResolver(propertiesInculde),
-            });
-            return jsonString;
+                throw new ESException("method serializeObject error", ex);
+            }
         }
         /// <summary>
         /// 序列化指定对象的指定单个属性（主要用于es update doc）
@@ -61,29 +67,36 @@ namespace ESFramework.Estensions
         /// <returns></returns>
         public static string SerializeObject(params TypeFeild<T>[] typeFeilds)
         {
-            List<string> propertiesInculde = new List<string>();
-            Type o = typeof(T);//加载类型
-            object obj = Activator.CreateInstance(o, true);//根据类型创建实例
-            var t = (T)obj;
-            foreach (var item in typeFeilds)
+            try
             {
-                string property = string.Empty;
-                var body = item.Field.Body as MemberExpression;
-                if (body == null)
+                List<string> propertiesInculde = new List<string>();
+                Type o = typeof(T);//加载类型
+                object obj = Activator.CreateInstance(o, true);//根据类型创建实例
+                var t = (T)obj;
+                foreach (var item in typeFeilds)
                 {
-                    throw new NullReferenceException("自定义EntitySerializeExtends方法，参数field.Body为空");
+                    string property = string.Empty;
+                    var body = item.Field.Body as MemberExpression;
+                    if (body == null)
+                    {
+                        throw new NullReferenceException("自定义EntitySerializeExtends方法，参数field.Body为空");
+                    }
+                    property = body.Member.Name;
+                    var fieldPropertyInfo = o.GetProperty(property);
+                    fieldPropertyInfo.SetValue(t, item.Value);
+                    propertiesInculde.Add(property);
                 }
-                property = body.Member.Name;
-                var fieldPropertyInfo = o.GetProperty(property);
-                fieldPropertyInfo.SetValue(t, item.Value);
-                propertiesInculde.Add(property);
+                string jsonString = JsonConvert.SerializeObject(t, Formatting.None, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    ContractResolver = new IncludeContractResolver(propertiesInculde),
+                });
+                return jsonString;
             }
-            string jsonString = JsonConvert.SerializeObject(t, Formatting.None, new JsonSerializerSettings
+            catch (Exception ex)
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                ContractResolver = new IncludeContractResolver(propertiesInculde),
-            });
-            return jsonString;// JsonConvert.DeserializeObject(jsonString);
+                throw new ESException("method serializeObject error", ex);
+            }
         }
     }
 }

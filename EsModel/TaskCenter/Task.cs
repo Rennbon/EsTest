@@ -1,4 +1,5 @@
-﻿using EsEnum.TaskCenter;
+﻿using EsEntity.TaskCenter.InnerModel;
+using EsEnum.TaskCenter;
 using ESFramework;
 using Nest;
 using Newtonsoft.Json;
@@ -106,5 +107,12 @@ namespace EsEntity.TaskCenter
         [Object]
         [JsonProperty("atts")]
         public List<InnerModel.Attachment> Attachments { set; get; }
+        /// <summary>
+        /// 讨论
+        /// </summary>
+        [Object]
+        [JsonProperty("discs")]
+        public List<TaskDiscussion> Discussions { set; get; }
+
     }
 }

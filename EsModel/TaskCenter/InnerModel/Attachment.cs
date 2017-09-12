@@ -13,7 +13,7 @@ namespace EsEntity.TaskCenter.InnerModel
     public class Attachment
     {
         [Keyword]
-        [JsonProperty("fileId")]
+        [JsonProperty("fileId", Order = 1)]
         public string FileId { set; get; }
         [Text(Analyzer = "ik_max_word", SearchAnalyzer = "ik_max_word")]
         [JsonProperty("attContent")]

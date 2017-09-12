@@ -42,6 +42,12 @@ namespace EsBusiness
             //     );
         }
 
+        public ReturnResult SearchTasks()
+        {
+            return null;
+         
+        }
+
         public ReturnResult AddAttachmentIntoTask(string taskId, List<string> list)
         {
 
@@ -49,7 +55,7 @@ namespace EsBusiness
             ReturnResult re = new ReturnResult(ResultCode.Error);
             var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
             .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
-            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtParam(sp => sp.Keywords, list))
+            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Keywords, list))
              );
             if (result.IsValid)
             {
@@ -64,7 +70,7 @@ namespace EsBusiness
             var t1 = DateTime.Now;
             var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
             .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
-            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtParam(sp => sp.Attachments, list)
+            .Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)
              ));
             var t2 = DateTime.Now;
             if (result.IsValid)
@@ -74,17 +80,11 @@ namespace EsBusiness
             ESFramework.Log.WriteLoacl.WriteFile($"taskid:{taskId};result:{result.IsValid},time-consuming:{(t2 - t1).TotalMilliseconds},length:{strlength}", "es/log1.txt");
             return re;
         }
-        public ReturnResult RemoveAttachmentIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
+        public ReturnResult RemoveTaskAttsInArray(string taskId, List<string> fileIds)
         {
-            list = new List<EsEntity.TaskCenter.InnerModel.Attachment> { new EsEntity.TaskCenter.InnerModel.Attachment {
-                FileId = "981",
-                AttContent ="隐兆照丁暑落悲镑华中网何猪昔穷偷,"
-            } };
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
-            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
-            .Script(ExExtends<Task>.GetScriptInlineToRemoveFisrtParam(sp => sp.Attachments, list)
-             ));
+            var bulkRequest = Helper.TaskCenterHelper.GetRemoveTaskAttsInArrayBulkRequest(taskId, fileIds);
+            var result = client.Bulk(bulkRequest);
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
@@ -121,11 +121,14 @@ namespace EsBusiness
         public ReturnResult AddTasks(List<Task> tasks)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
+            var t1 = DateTime.Now;
             var result = client.IndexMany<Task>(tasks);
+            var t2 = DateTime.Now;
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
             }
+            ESFramework.Log.WriteLoacl.WriteFile($"result:{result.IsValid},time-consuming:{(t2 - t1).TotalMilliseconds}", "es/addtask.txt");
             return re;
         }
         /// <summary>
@@ -234,10 +237,7 @@ namespace EsBusiness
             if (!client.IndexExists(indexName).Exists)
             {
                 var c = client.CreateIndex(indexName, i => i.UpdateAllTypes().Mappings(ms => ms
-                   .Map<Task>(m => m.AutoMap())
-                   .Map<TaskDiscussion>(m => m.AutoMap().Parent<Task>())
-                   .Map<Folder>(m => m.AutoMap())
-                   .Map<FolderDiscussion>(m => m.AutoMap().Parent<Folder>())));
+                   .Map<Task>(m => m.AutoMap())));
             }
         }
     }

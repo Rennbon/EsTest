@@ -21,32 +21,38 @@ namespace Test
             //string serialStr = JsonConvert.SerializeObject(DateTime.Now, Formatting.Indented, timeConverter);
 
             //TaskCenterBusiness.Instance.AddAttachmentIntoTask("t2", new List<string> { "yige kw", "还有kw", "无语了" });
+            //TaskCenterBusiness.Instance.SearchTasks();
+            TaskCenterBusiness.Instance.RemoveTaskAttsInArray("t3", new List<string> { "10002", "10003", "10004" });
 
-            Parallel.For(1, 5000, i =>
-            {
-                //for (int i = 0; i < 5000; i++)
-                //{
-                string name = "t" + new Random(DateTime.Now.Millisecond).Next(3, 20);
-                TaskCenterBusiness.Instance.AddAttachmentIntoTask(name, new List<EsEntity.TaskCenter.InnerModel.Attachment> { new EsEntity.TaskCenter.InnerModel.Attachment
-                    {
-                        FileId = DateTime.Now.Millisecond.ToString(),
-                        AttContent = GetRandomStr(30)
-                    }
-            });
-                //}
-            });
+            //Parallel.For(5000, 6000, i =>
+            //{
+            //    //for (int i = 0; i < 5000; i++)
+            //    //{
+            //string name = "t3" ;
+            //TaskCenterBusiness.Instance.AddAttachmentIntoTask(name, new List<EsEntity.TaskCenter.InnerModel.Attachment> { new EsEntity.TaskCenter.InnerModel.Attachment
+            //        {
+            //            FileId = DateTime.Now.Millisecond.ToString(),
+            //            AttContent = GetRandomStr(30)
+            //        },
+            //        new EsEntity.TaskCenter.InnerModel.Attachment{
+            //            FileId = DateTime.Now.Millisecond.ToString(),
+            //            AttContent = GetRandomStr(30)
+            //        }
+            //});
+            //    //}
+            //});
 
-            TaskCenterBusiness.Instance.SSSS();
+            //TaskCenterBusiness.Instance.SSSS();
 
-            return;
+             return;
 
             #region TASKCENTER
             //TaskCenterBusiness.Instance.CreateIndex();
             //return;
             #region addtask
             List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>();
-            int count = 0;
-            for (int p = 0; p < 3; p++)
+            int count = 1000;
+            for (int p = 200; p < 2000; p++)
             {
                 count++;
                 var task = new EsEntity.TaskCenter.Task
@@ -63,7 +69,6 @@ namespace Test
                     IsDeleted = false,
                     Keywords = new List<string> {
                             "123",
-                            "",
                             "12321"
                         },
                     MemberIds = new List<string> {
@@ -88,7 +93,7 @@ namespace Test
                     EsEntity.TaskCenter.InnerModel.Attachment att = new EsEntity.TaskCenter.InnerModel.Attachment
                     {
                         FileId = DateTime.Now.Millisecond.ToString(),
-                        AttContent = GetRandomStr(30)
+                        AttContent = GetRandomStr(300)
                     };
                     task.Attachments.Add(att);
                 });
@@ -146,7 +151,7 @@ namespace Test
 
             Parallel.For(1, count, i =>
             {
-                sb.Append(GetRandomChinese(new Random().Next(10, 2000)) + ",");
+                sb.Append(GetRandomChinese(new Random().Next(10, 200)) + ",");
             });
             return sb.ToString();
         }
@@ -162,7 +167,12 @@ namespace Test
 
             Parallel.For(1, strlength, i =>
             {
-                string temp = gb.GetString((byte[])Convert.ChangeType(bytes[i], typeof(byte[])));
+                int index = i;
+                if (index > bytes.Length)
+                {
+                    index = bytes.Length-1;
+                }
+                string temp = gb.GetString((byte[])Convert.ChangeType(bytes[index], typeof(byte[])));
                 sb.Append(temp);
             });
 

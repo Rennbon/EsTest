@@ -25,7 +25,7 @@ namespace EsBusiness.Helper
                 {
                     case EsEnum.TaskCenter.TaskMethodEnum.Pull_MemberIds:
                         var pullMemberIds = GetMemberIds(tasks, item.Task.TaskId).Except(item.Task.MemberIds).ToList();
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.MemberIds, pullMemberIds);      
+                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.MemberIds, pullMemberIds);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Push_MemberIds:
                         var pushMemberIds = GetMemberIds(tasks, item.Task.TaskId);
@@ -69,7 +69,7 @@ namespace EsBusiness.Helper
                         operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.TaskName, item.Task.TaskName);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_UpdateTime:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.UpdateTime, item.Task.UpdateTime);             
+                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.UpdateTime, item.Task.UpdateTime);
                         break;
                     default: break;
                 }
@@ -77,6 +77,19 @@ namespace EsBusiness.Helper
             }
             return bulkRequest;
         }
+        public static BulkRequest GetRemoveTaskAttsInArrayBulkRequest(string taskId, IEnumerable<string> fileIds)
+        {
+            BulkRequest bulkRequest = new BulkRequest() { Operations = new List<IBulkOperation>() };
+            foreach (var item in fileIds)
+            {
+                var operation = new BulkUpdateOperation<Task, object>(taskId);
+                operation.Script = ExExtends<Task>.GetScriptInlineToRemoveFisrtElementById(sp => sp.Attachments.First().FileId, item).Invoke(new ScriptDescriptor());
+                bulkRequest.Operations.Add(operation);
+            }
+            return bulkRequest;
+        }
+
+
 
         private static List<string> GetMemberIds(IEnumerable<Task> tasks, string taskId)
         {

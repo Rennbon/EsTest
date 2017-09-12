@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ESFramework.Estensions
 {
-    public class TypeFeild<T> where T : IESEntity
+    public class TypeFeild<T> 
     {
 
         private Expression<Func<T, object>> feild;

@@ -43,16 +43,40 @@ namespace EsBusiness
             //     );
         }
 
-        //public ReturnResult SearchTasks(string currentAId, List<string> relationAId,string keyword,string projectId,bool isPaid,int pageIndex,int pageSize,DateTime? startTime,DateTime? endTime)
-        //{
-        //    var result = client.Search<Task>(o => o
-        //    .Source(source => source.Includes(include => include.Fields(field => field.CreateAccountID, field => field.TaskName, field => field.Content, field => field.ProjectId, field => field.CreateTime)))
-        //   .Query(
-                
-        //        )
-        //    );
+        public ReturnResult SearchTasks(string currentAId, List<string> relationAId, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime)
+        {
 
-        //}
+           
+            var filter = new List<QueryContainer>();
+            if (!string.IsNullOrEmpty(currentAId))
+            {
+                filter.Add(new QueryContainerDescriptor<Task>().Bool(b => b.Must(m => m.Term(t => t.Field(f => f.CreateAccountID == currentAId)))));
+            }
+            filter.Add(new QueryContainerDescriptor<Task>().QueryString(qs=>qs.Fields(fs=>fs
+                            .Field(f=>f.TaskName)).Query(keyword)
+                            
+                            
+                            )))
+               
+            var result = client.Search<Task>(o => o
+            .Source(source => source.Includes(include => include.Fields(field => field.CreateAccountID, field => field.TaskName, field => field.Content, field => field.ProjectId, field => field.CreateTime)))
+           .Query(
+
+                )
+                .From(pageIndex)
+                .Size(pageSize)
+                .Highlight(hl=>hl
+                    .PreTags("<tag>")
+                    .PostTags("</tag>")
+                    .Fields(fs=>fs
+                        .Field(f=>f.TaskName)
+                        .Field(f=>f.Content)
+                    )
+                )
+                .Sort(sort=>sort.Descending(task=>task.CreateTime))
+            );
+
+        }
 
         public ReturnResult AddAttachmentsIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {

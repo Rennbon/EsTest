@@ -16,7 +16,7 @@ namespace Test
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 
-            //var list = TaskCenterBusiness.Instance.SearchTasks("wo", null, "今天是个好日子", "all", true, 0, 5, null, null);
+            var list = TaskCenterBusiness.Instance.SearchTasks("ta", null, "中国人", "all", true, 0, 5, null, null);
             //string a = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.SSS");
             //IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
             ////这里使用自定义日期格式，如果不使用的话，默认是ISO8601格式  
@@ -51,7 +51,7 @@ namespace Test
 
             #region TASKCENTER
             //TaskCenterBusiness.Instance.CreateIndex();
-            //return;
+            return;
             #region addtask
             List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>() {
                 new EsEntity.TaskCenter.Task

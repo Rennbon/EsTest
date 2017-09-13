@@ -59,32 +59,32 @@ namespace EsBusiness
             {
                 queryContainer &= Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.EndTime <= endTime))));
             }
-            queryContainer &= Query<Task>.MultiMatch(m => m.Fields(fs => fs
-                .Fields(
-                    f => f.TaskName,
-                    f => f.Keywords,
-                    f => f.Discussions.First().Message,
-                    f => f.Content)
-                )
-            .Query(keyword));
-            if (relationAId != null && relationAId.Count > 0)
-            {
-                queryContainer &= Query<Task>.MultiMatch(m => m.Fields(fs => fs
-                    .Fields(
-                        f => f.Discussions.Any(o => o.MentionedAccountIds.Any(i => relationAId.Contains(i))),
-                        f => relationAId.Contains(f.CreateAccountID),
-                        f => f.MemberIds.Any(i => relationAId.Contains(i)))
-                    )
-                );
-            }
-            if (isPaid)
-            {
-                queryContainer &= Query<Task>.MultiMatch(m => m.Fields(fs => fs.Fields(f => f.Attachments.First().AttContent)).Query(keyword));
-            }
+            //queryContainer &= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs
+            //        .Fields(
+            //            f => f.TaskName,
+            //            f => f.Keywords,
+            //            f => f.Discussions.First().Message,
+            //            f => f.Content)
+            //        )
+            //    .Query(keyword))));
+            //if (relationAId != null && relationAId.Count > 0)
+            //{
+            //    queryContainer &= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs
+            //        .Fields(
+            //            f => f.Discussions.Any(o => o.MentionedAccountIds.Any(i => relationAId.Contains(i))),
+            //            f => relationAId.Contains(f.CreateAccountID),
+            //            f => f.MemberIds.Any(i => relationAId.Contains(i)))
+            //        )
+            //    )));
+            //}
+            //if (isPaid)
+            //{
+            //    queryContainer &= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs.Fields(f => f.Attachments.First().AttContent)).Query(keyword))));
+            //}
             var result = client.Search<Task>(o => o
            .Source(source => source.Includes(include => include.Fields(field => field.CreateAccountID, field => field.TaskName, field => field.Content, field => field.ProjectId, field => field.CreateTime)))
            .Query(_ => queryContainer)
-               .From(pageIndex-1)
+               .From(pageIndex - 1)
                .Size(pageSize)
                .Highlight(hl => hl
                    .PreTags("<tag>")

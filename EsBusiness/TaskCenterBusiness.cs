@@ -46,44 +46,46 @@ namespace EsBusiness
         public ReturnResult SearchTasks(string currentAId, List<string> relationAId, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            QueryContainer queryContainer = Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.IsDeleted == false && f.MemberIds.Contains(currentAId)))));
+            QueryContainer qcAnd = Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.IsDeleted == false && f.MemberIds.Contains(currentAId)))));
             if (projectId != "all")
             {
-                queryContainer &= Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.ProjectId == projectId))));
+                qcAnd &= Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.ProjectId == projectId))));
             }
             if (startTime.HasValue)
             {
-                queryContainer &= Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.StartTime >= startTime))));
+                qcAnd &= Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.StartTime >= startTime))));
             }
             if (endTime.HasValue)
             {
-                queryContainer &= Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.EndTime <= endTime))));
+                qcAnd &= Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.EndTime <= endTime))));
             }
-            //queryContainer &= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs
-            //        .Fields(
-            //            f => f.TaskName,
-            //            f => f.Keywords,
-            //            f => f.Discussions.First().Message,
-            //            f => f.Content)
-            //        )
-            //    .Query(keyword))));
-            //if (relationAId != null && relationAId.Count > 0)
-            //{
-            //    queryContainer &= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs
-            //        .Fields(
-            //            f => f.Discussions.Any(o => o.MentionedAccountIds.Any(i => relationAId.Contains(i))),
-            //            f => relationAId.Contains(f.CreateAccountID),
-            //            f => f.MemberIds.Any(i => relationAId.Contains(i)))
-            //        )
-            //    )));
-            //}
-            //if (isPaid)
-            //{
-            //    queryContainer &= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs.Fields(f => f.Attachments.First().AttContent)).Query(keyword))));
-            //}
+
+            QueryContainer qcOr = Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs
+                    .Fields(
+                        f => f.TaskName,
+                        f => f.Keywords,
+                        f => f.Discussions.First().Message,
+                        f => f.Content)
+                    )
+                .Query(keyword))));
+            if (relationAId != null && relationAId.Count > 0)
+            {
+                qcOr |= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs
+                    .Fields(
+                        f => f.Discussions.Any(o => o.MentionedAccountIds.Any(i => relationAId.Contains(i))),
+                        f => relationAId.Contains(f.CreateAccountID),
+                        f => f.MemberIds.Any(i => relationAId.Contains(i)))
+                    )
+                )));
+            }
+            if (isPaid)
+            {
+                qcOr |= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs.Fields(f => f.Attachments.First().AttContent)).Query(keyword))));
+            }
+
             var result = client.Search<Task>(o => o
            .Source(source => source.Includes(include => include.Fields(field => field.CreateAccountID, field => field.TaskName, field => field.Content, field => field.ProjectId, field => field.CreateTime)))
-           .Query(_ => queryContainer)
+           .Query(_ => qcAnd & qcOr)
                .From(pageIndex - 1)
                .Size(pageSize)
                .Highlight(hl => hl

@@ -1,0 +1,34 @@
+﻿syntax = "proto3";
+
+package Elasticsearch;
+
+service ESTest {	
+	/**
+	*发送讨论
+	*/
+	rpc Get (GetRequest) returns (ExecuteResult) {}
+	/**
+	*根据任务ids删除任务
+	*/
+	rpc Update (UpdateRequest) returns (ExecuteResult){} 
+}
+/**
+*操作执行结果
+*/
+message ExecuteResult {
+
+	/**
+	*操作是否执行成功
+	*/
+	bool isSuccess = 1;
+	/**
+	*错误信息
+	*/
+    string error = 2;
+}
+message  GetRequest{
+	string name=1;
+}
+message  UpdateRequest{
+	string name =1;
+}

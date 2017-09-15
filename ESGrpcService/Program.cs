@@ -17,7 +17,6 @@ namespace ESGrpcService
                     s.WhenStopped(tc => tc.Stop());
                 });
                 x.RunAsLocalSystem();
-
                 x.SetDescription("明道讨论服务");
             });
         }
@@ -36,7 +35,9 @@ namespace ESGrpcService
                 //Services = { MD.Discussion.DiscussionService.BindService(new serviceImpl()) },
                 //Ports = { new ServerPort(host, Convert.ToInt32(port), ServerCredentials.Insecure) }
             };
+    
         }
+
         public void Start() { server.Start(); }
         public void Stop() { server.ShutdownAsync(); }
     }

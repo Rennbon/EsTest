@@ -16,35 +16,40 @@ using Newtonsoft.Json;
 using ESFramework.Estensions;
 using System.Linq.Expressions;
 using EsEntity.TaskCenter.InnerModel;
+using IESBusinessContract;
+using Castle.Core;
+using Interceptors;
 
 namespace EsBusiness
 {
-    public class TaskCenterBusiness : EsBase.EsDomain
+    [Interceptor(typeof(RouteInterceptor))]
+    public class TaskCenterBusiness : EsBase.EsDomain, ITaskCenterContract
     {
-        private static string indexName = ESFramework.EsSysConfig.IndexNameTaskCenter;
-        private static IEnumerable<string> taskCenterUrl = ESFramework.EsSysConfig.TaskCenterUrl;
-        public TaskCenterBusiness(string defaultIndexName, IEnumerable<string> urls) : base(defaultIndexName, urls)
-        {
-        }
-        private static readonly Lazy<TaskCenterBusiness> lazy =
-            new Lazy<TaskCenterBusiness>(() =>
-            new TaskCenterBusiness(indexName, taskCenterUrl));
 
-        public static TaskCenterBusiness Instance
+        private static string indexName = "taskcenter";//ESFramework.EsSysConfig.IndexNameTaskCenter;
+        private static IEnumerable<string> taskCenterUrl = new List<string>{    "http://localhost:9200",
+        "http://localhost:9201",
+        "http://localhost:9202" }; //ESFramework.EsSysConfig.TaskCenterUrl;
+                                   //public TaskCenterBusiness(string defaultIndexName, IEnumerable<string> urls) : base(defaultIndexName, urls)
+                                   //{
+
+        //}
+
+        public TaskCenterBusiness() : base(indexName, taskCenterUrl)
         {
-            get { return lazy.Value; }
         }
-        public void SSSS()
-        {
-            var aaa = client.Search<Task>(sq => sq.Source(include => include.Includes(ics => ics.Fields(f => f.Attachments))));
-            //var result = client.MultiSearch(ms => ms
-            //     .Search<Task>(indexName, o => o.Index(indexName).Query(q => q.Term(t => t.Field(f => f.TaskId == "t1"))))
-            //     .Search<EsEntity.Test.TestModel>("test", o => o.Index("test").Query(q => q.Term(t => t.Field(f => f.Id == "test2"))))
-            //     );
-        }
+        //private static readonly Lazy<TaskCenterBusiness> lazy =
+        //    new Lazy<TaskCenterBusiness>(() =>
+        //    new TaskCenterBusiness());
+        ////indexName, taskCenterUrl
+        //public static TaskCenterBusiness Instance
+        //{
+        //    get { return lazy.Value; }
+        //}
 
         public ReturnResult SearchTasks(string currentAId, List<string> relationAId, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime)
         {
+
             ReturnResult re = new ReturnResult(ResultCode.Error);
             QueryContainer qcAnd = Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.IsDeleted == false && f.MemberIds.Contains(currentAId)))));
             if (projectId != "all")
@@ -109,11 +114,7 @@ namespace EsBusiness
         public ReturnResult AddAttachmentsIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            //var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
-            //.Conflicts(Elasticsearch.Net.Conflicts.Proceed)
-            //.Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)
-            // ));
-            var result = client.Update<Task>(taskId, o => o.Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)));
+            var result = client.Update<Task>(taskId, o => o.Script(NestExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)));
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
@@ -135,11 +136,7 @@ namespace EsBusiness
         {
 
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            //var result = client.UpdateByQuery<Task>(sq => sq.Query(q => q.Bool(b => b.Must(m => m.Ids(ids => ids.Values(taskId)))))
-            //.Conflicts(Elasticsearch.Net.Conflicts.Proceed)
-            //.Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Discussions, new List<TaskDiscussion> { disc })
-            // ));
-            var result = client.Update<Task>(taskId, o => o.Script(ExExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Discussions, new List<TaskDiscussion> { disc })));
+            var result = client.Update<Task>(taskId, o => o.Script(NestExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Discussions, new List<TaskDiscussion> { disc })));
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
@@ -150,7 +147,7 @@ namespace EsBusiness
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
             var bulkRequest = Helper.TaskCenterHelper.GetRemoveTaskAttsInArrayBulkRequest(taskId, new List<string> { discId });
-            var result = client.Update<Task>(taskId, o => o.Script(ExExtends<Task>.GetScriptInlineToRemoveFisrtElementById(sc => sc.Discussions.First().DiscussionId, discId)));
+            var result = client.Update<Task>(taskId, o => o.Script(NestExtends<Task>.GetScriptInlineToRemoveFisrtElementById(sc => sc.Discussions.First().DiscussionId, discId)));
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
@@ -167,7 +164,6 @@ namespace EsBusiness
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
             var tidsNeedSearch = methods.Where(o => o.Methed == TaskMethodEnum.Pull_MemberIds || o.Methed == TaskMethodEnum.Push_MemberIds).Select(o => o.Task.TaskId).ToList();
-            //var tasks = client.GetMany<Task>(tidsNeedSearch).ToList().Select(o => o.Source);
             var tasks = client.Search<Task>(sq => sq
             .Source(include => include.Includes(ics => ics.Fields(f => f.MemberIds)))
             .Query(q => q.Term(t => t.Field(f => tidsNeedSearch.Contains(f.TaskId))))
@@ -228,7 +224,7 @@ namespace EsBusiness
                )
            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
            .Script(script => script
-                .Inline(ExExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.IsDeleted, true))
+                .Inline(NestExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.IsDeleted, true))
             )));
             if (result.IsValid)
             {
@@ -255,7 +251,7 @@ namespace EsBusiness
                )
            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
            .Script(script => script
-                .Inline(ExExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderName, folderName))
+                .Inline(NestExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderName, folderName))
             )));
             if (result.IsValid)
             {
@@ -284,7 +280,7 @@ namespace EsBusiness
                 )
             .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
             .Script(script => script
-                .Inline(ExExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderId, string.Empty), new TypeFeild<Task>(tf => tf.FolderName, string.Empty))
+                .Inline(NestExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderId, string.Empty), new TypeFeild<Task>(tf => tf.FolderName, string.Empty))
             )));
             if (result.IsValid)
             {

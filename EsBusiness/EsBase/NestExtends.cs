@@ -12,7 +12,7 @@ using System.Text;
 
 namespace EsBusiness.EsBase
 {
-    class ExExtends<T> where T : IESEntity
+    public class NestExtends<T> where T : IESEntity
     {
 
         /// <summary>

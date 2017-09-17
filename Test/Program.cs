@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Interceptors;
+using IESBusinessContract;
 
 namespace Test
 {
@@ -12,11 +14,12 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            TaskCenterBusiness.Instance.CreateIndex();
+            ITaskCenterContract client = IOCContainer.Instance.Resolve<ITaskCenterContract>();
+            //TaskCenterBusiness.Instance.CreateIndex();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 
-            var list = TaskCenterBusiness.Instance.SearchTasks("ta", null, "中国人", "all", true, 0, 100, null, null);
+            var list = client.SearchTasks("ta", null, "中国人", "all", true, 0, 100, null, null);
             //string a = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.SSS");
             //IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
             ////这里使用自定义日期格式，如果不使用的话，默认是ISO8601格式  
@@ -697,7 +700,7 @@ namespace Test
             tasks.Add(task);
 
 
-            TaskCenterBusiness.Instance.AddTasks(tasks);
+            //TaskCenterBusiness.Instance.AddTasks(tasks);
             //}
 
             #endregion addtask

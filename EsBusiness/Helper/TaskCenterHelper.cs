@@ -25,51 +25,51 @@ namespace EsBusiness.Helper
                 {
                     case EsEnum.TaskCenter.TaskMethodEnum.Pull_MemberIds:
                         var pullMemberIds = GetMemberIds(tasks, item.Task.TaskId).Except(item.Task.MemberIds).ToList();
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.MemberIds, pullMemberIds);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.MemberIds, pullMemberIds);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Push_MemberIds:
                         var pushMemberIds = GetMemberIds(tasks, item.Task.TaskId);
                         pushMemberIds.AddRange(item.Task.MemberIds);
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.MemberIds, pushMemberIds.Distinct().ToList());
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.MemberIds, pushMemberIds.Distinct().ToList());
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_Charge:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.ChargeAccountId, item.Task.ChargeAccountId);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.ChargeAccountId, item.Task.ChargeAccountId);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_CompleteTime:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.CompleteTime, item.Task.CompleteTime);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.CompleteTime, item.Task.CompleteTime);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_Content:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.Content, item.Task.Content);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.Content, item.Task.Content);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_CreateAccountId:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.CreateAccountID, item.Task.CreateAccountID);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.CreateAccountID, item.Task.CreateAccountID);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_EndTime:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.EndTime, item.Task.EndTime);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.EndTime, item.Task.EndTime);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_FolderId:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.FolderId, item.Task.FolderId);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.FolderId, item.Task.FolderId);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_FolderName:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.FolderName, item.Task.FolderName);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.FolderName, item.Task.FolderName);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_Keywords:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.Keywords, item.Task.Keywords);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.Keywords, item.Task.Keywords);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_ParentId:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.ParentId, item.Task.ParentId);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.ParentId, item.Task.ParentId);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_StartTime:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.StartTime, item.Task.StartTime);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.StartTime, item.Task.StartTime);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_Status:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.Status, item.Task.Status);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.Status, item.Task.Status);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_TaskName:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.TaskName, item.Task.TaskName);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.TaskName, item.Task.TaskName);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_UpdateTime:
-                        operation.Doc = ExExtends<Task>.DeserializeObjectToSet(o => o.UpdateTime, item.Task.UpdateTime);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.UpdateTime, item.Task.UpdateTime);
                         break;
                     default: break;
                 }
@@ -83,7 +83,7 @@ namespace EsBusiness.Helper
             foreach (var item in fileIds)
             {
                 var operation = new BulkUpdateOperation<Task, object>(taskId);
-                operation.Script = ExExtends<Task>.GetScriptInlineToRemoveFisrtElementById(sp => sp.Attachments.First().FileId, item).Invoke(new ScriptDescriptor());
+                operation.Script = NestExtends<Task>.GetScriptInlineToRemoveFisrtElementById(sp => sp.Attachments.First().FileId, item).Invoke(new ScriptDescriptor());
                 bulkRequest.Operations.Add(operation);
             }
             return bulkRequest;

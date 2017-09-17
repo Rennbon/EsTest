@@ -20,9 +20,6 @@ namespace EsEntity.Indexer
         public static CreateIndexDescriptor TaskCentnerMappingSelector = new CreateIndexDescriptor(EsSysConfig.IndexNameTaskCenter)
         .Mappings(ms => ms
             .Map<Task>(m => m.AutoMap())
-
-        //.Map<Folder>(m => m.AutoMap())
-
         );
     }
 }

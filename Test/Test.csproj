@@ -15,6 +15,7 @@
     <ProjectReference Include="..\EsEnum\EsEnum.csproj" />
     <ProjectReference Include="..\ESFramework\ESFramework.csproj" />
     <ProjectReference Include="..\EsModel\EsEntity.csproj" />
+    <ProjectReference Include="..\Interceptors\Interceptors.csproj" />
   </ItemGroup>
 
 </Project>

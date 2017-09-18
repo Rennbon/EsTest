@@ -10,7 +10,7 @@ namespace ESRedisCache
         /// <summary>
         /// WWW Redis
         /// </summary>
-        public static RedisHelper Interface
+        public static RedisHelper ESMethod
         {
             get
             {

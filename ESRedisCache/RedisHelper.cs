@@ -182,6 +182,19 @@ namespace ESRedisCache
                 return redis.RemoveItemFromList(key.ToLower(), value) > 0;
             }
         }
+        public T PopItemFromList<T>(string key)
+        {
+            using (IRedisClient redis = prcm.GetClient())
+            {
+                string item = redis.PopItemFromList(key.ToLower());
+                T t = default(T);
+                if (string.IsNullOrEmpty(item))
+                {
+                    t = JsonConvert.DeserializeObject<T>(item);
+                }
+                return t;
+            }
+        }
 
         public long ListCount(string key)
         {

@@ -10,7 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ESCaching\ESCaching.csproj" />
     <ProjectReference Include="..\ESFramework\ESFramework.csproj" />
+    <ProjectReference Include="..\ESRedisCache\ESRedisCache.csproj" />
+    <ProjectReference Include="..\IESBusinessContract\IESBusinessContract.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "A_Common", "A_Common", "{3926D1A2-48C7-4B15-9423-2D040D08E7DC}"
 EndProject
@@ -30,9 +30,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "D_Grpc", "D_Grpc", "{3CB872
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcBuild", "GrpcBuild\GrpcBuild.csproj", "{29BFD6FD-9883-4F8D-860D-FA22D747DF76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IESBusinessContract", "IESBusinessContract\IESBusinessContract.csproj", "{FFFB4D5D-6CD6-46FE-95F0-07A0A01307B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IESBusinessContract", "IESBusinessContract\IESBusinessContract.csproj", "{FFFB4D5D-6CD6-46FE-95F0-07A0A01307B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interceptors", "Interceptors\Interceptors.csproj", "{94A4E7E5-BD51-4368-8485-9B23ABA006C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interceptors", "Interceptors\Interceptors.csproj", "{94A4E7E5-BD51-4368-8485-9B23ABA006C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESCaching", "ESCaching\ESCaching.csproj", "{EF8C7B54-7297-4B0F-B853-62D53CE27DC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,6 +78,10 @@ Global
 		{94A4E7E5-BD51-4368-8485-9B23ABA006C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94A4E7E5-BD51-4368-8485-9B23ABA006C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94A4E7E5-BD51-4368-8485-9B23ABA006C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF8C7B54-7297-4B0F-B853-62D53CE27DC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF8C7B54-7297-4B0F-B853-62D53CE27DC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF8C7B54-7297-4B0F-B853-62D53CE27DC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF8C7B54-7297-4B0F-B853-62D53CE27DC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{29BFD6FD-9883-4F8D-860D-FA22D747DF76} = {3CB87257-1CAA-450B-9D51-972BF4F9DC59}
 		{FFFB4D5D-6CD6-46FE-95F0-07A0A01307B9} = {800BC742-EB50-4D2B-BDD1-CB16D2776069}
 		{94A4E7E5-BD51-4368-8485-9B23ABA006C7} = {800BC742-EB50-4D2B-BDD1-CB16D2776069}
+		{EF8C7B54-7297-4B0F-B853-62D53CE27DC5} = {16E61972-6075-4D95-85C8-B637B7AB8962}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {31BE1116-F180-4CF8-B422-C910D1761897}

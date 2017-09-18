@@ -40,6 +40,7 @@ namespace EsBusiness
         //{
         //    get { return lazy.Value; }
         //}
+        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult SearchTasks(string currentAId, List<string> relationAId, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime)
         {
 

@@ -19,6 +19,7 @@ using EsEntity.TaskCenter.InnerModel;
 using IESBusinessContract;
 using Castle.Core;
 using Interceptors;
+using ESFramework.CustomAttributes;
 
 namespace EsBusiness
 {
@@ -26,15 +27,8 @@ namespace EsBusiness
     public class TaskCenterBusiness : EsBase.EsDomain, ITaskCenterContract
     {
 
-        private static string indexName = "taskcenter";//ESFramework.EsSysConfig.IndexNameTaskCenter;
-        private static IEnumerable<string> taskCenterUrl = new List<string>{    "http://localhost:9200",
-        "http://localhost:9201",
-        "http://localhost:9202" }; //ESFramework.EsSysConfig.TaskCenterUrl;
-                                   //public TaskCenterBusiness(string defaultIndexName, IEnumerable<string> urls) : base(defaultIndexName, urls)
-                                   //{
-
-        //}
-
+        private static string indexName = ESFramework.EsSysConfig.IndexNameTaskCenter;
+        private static IEnumerable<string> taskCenterUrl = ESFramework.EsSysConfig.TaskCenterUrl;
         public TaskCenterBusiness() : base(indexName, taskCenterUrl)
         {
         }
@@ -46,7 +40,6 @@ namespace EsBusiness
         //{
         //    get { return lazy.Value; }
         //}
-
         public ReturnResult SearchTasks(string currentAId, List<string> relationAId, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime)
         {
 
@@ -110,7 +103,7 @@ namespace EsBusiness
             }
             return re;
         }
-
+        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult AddAttachmentsIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -121,6 +114,7 @@ namespace EsBusiness
             }
             return re;
         }
+        [Reroute]
         public ReturnResult RemoveAttachmentsInTask(string taskId, List<string> fileIds)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -132,6 +126,7 @@ namespace EsBusiness
             }
             return re;
         }
+        [Reroute]
         public ReturnResult AddTaskDiscussion(string taskId, TaskDiscussion disc)
         {
 
@@ -143,6 +138,7 @@ namespace EsBusiness
             }
             return re;
         }
+        [Reroute]
         public ReturnResult RemoveTaskDiscussion(string taskId, string discId)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -160,6 +156,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="methods"></param>
         /// <returns></returns>
+        [Reroute]
         public ReturnResult UpdateTasks(List<TaskMethed> methods)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -181,6 +178,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="tasks"></param>
         /// <returns></returns>
+        [Reroute]
         public ReturnResult AddTasks(List<Task> tasks)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -196,6 +194,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="taskIds">任务ids</param>
         /// <returns></returns>
+        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult RemoveTasksByTaskIds(List<string> taskIds)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -211,6 +210,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="folderId">项目id</param>
         /// <returns></returns>
+        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult RemoveTasksByFolderId(string folderId)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -238,6 +238,7 @@ namespace EsBusiness
         /// <param name="folderId"></param>
         /// <param name="folderName"></param>
         /// <returns></returns>
+        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult UpdateTasksFolderNameByFolderId(string folderId, string folderName)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -267,6 +268,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="folderId"></param>
         /// <returns></returns>
+        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult UnlockFolderAndTasks(string folderId)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);

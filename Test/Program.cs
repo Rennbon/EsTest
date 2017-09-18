@@ -14,7 +14,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            ITaskCenterContract client = IOCContainer.Instance.Resolve<ITaskCenterContract>();
+            ITaskCenterContract client = InterceptIWindsor.Instance.Resolve<ITaskCenterContract>();
             //TaskCenterBusiness.Instance.CreateIndex();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 

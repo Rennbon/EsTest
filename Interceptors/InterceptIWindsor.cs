@@ -9,15 +9,15 @@ using ESFramework;
 
 namespace Interceptors
 {
-    public class IOCContainer
+    public class InterceptIWindsor
     {
         private readonly IWindsorContainer container;
 
-        private static readonly Lazy<IOCContainer> Lazy = new Lazy<IOCContainer>(() => new IOCContainer());
+        private static readonly Lazy<InterceptIWindsor> Lazy = new Lazy<InterceptIWindsor>(() => new InterceptIWindsor());
 
         public static IWindsorContainer Instance => Lazy.Value.container;
 
-        private IOCContainer()
+        private InterceptIWindsor()
         {
             container = new WindsorContainer();
             container.Register(Component.For<IInterceptor>().ImplementedBy<RouteInterceptor>());

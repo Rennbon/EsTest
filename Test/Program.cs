@@ -59,7 +59,7 @@ namespace Test
             List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>() {
                 new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "wo",
                     CompleteTime = DateTime.Now,
                     Content = "今天要拿fist blood",
@@ -110,7 +110,7 @@ namespace Test
                     }
                 },new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "ni",
                     CompleteTime = DateTime.Now,
                     Content = "关二哥脸好红，一定是看黄书了",
@@ -161,7 +161,7 @@ namespace Test
                     }
                 },new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "ni",
                     CompleteTime = DateTime.Now,
                     Content = "发哥附身,逢赌必胜",
@@ -212,7 +212,7 @@ namespace Test
                     }
                 },new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "周星星的功夫到底拍的如何",
@@ -264,7 +264,7 @@ namespace Test
                     }
                 },new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "github 代码管理方案",
@@ -317,7 +317,7 @@ namespace Test
                 }
                 ,new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "太白菜大神的流水账",
@@ -369,7 +369,7 @@ namespace Test
                     }
                 },new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "wo",
                     CompleteTime = DateTime.Now,
                     Content = "测试插到死，数据啊数据",
@@ -420,7 +420,7 @@ namespace Test
                     }
                 },new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "老本很坚固了，不会爆的",
@@ -472,7 +472,7 @@ namespace Test
                     }
                 },new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "回收孔调，电脑，电冰箱",
@@ -525,7 +525,7 @@ namespace Test
                 }
                 ,new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "高富帅，土肥圆，白富美，穷挫矮",
@@ -577,7 +577,7 @@ namespace Test
                     }
                 },new EsEntity.TaskCenter.Task
                 {
-                    AppID = string.Empty,
+                    AppId = string.Empty,
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "别人休假我加班，保险自己缴，房贷没资格，幸好不用付停车费，因为我根本没有车",
@@ -635,7 +635,7 @@ namespace Test
             count++;
             var task = new EsEntity.TaskCenter.Task
             {
-                AppID = string.Empty,
+                AppId = string.Empty,
                 ChargeAccountId = "wo",
                 CompleteTime = DateTime.Now,
                 Content = "今天是个好日子",

@@ -1,0 +1,410 @@
+﻿syntax = "proto3";
+
+package Elasticsearch;
+
+service ESService {	
+	/**
+	*发送讨论
+	*/
+	rpc SearchTasks (SearchTasksRequest) returns (SearchTasksResult) {}
+	/**
+	*添加附件
+	*/
+	rpc AddAttachmentsIntoTask (AddAttachmentsIntoTaskRequest) returns (ExecuteResult){} 
+	/**
+	*删除附件
+	*/
+	rpc RemoveAttachmentsInTask (RemoveAttachmentsInTaskRequest) returns (ExecuteResult){} 
+	/**
+	*添加讨论
+	*/
+	rpc AddTaskDiscussionInTask (AddTaskDiscussionInTaskRequest) returns (ExecuteResult){} 
+
+	/**
+	*删除讨论
+	*/
+	rpc RemoveTaskDiscussion (RemoveTaskDiscussionRequest) returns (ExecuteResult){}
+
+	/**
+	*修改任务
+	*/
+	rpc UpdateTasks (UpdateTasksRequest) returns (ExecuteResult){}
+	/**
+	*批量增加任务
+	*/
+	rpc AddTasks (AddTasksRequest) returns (ExecuteResult){}
+	/**
+	*批量根据任务id伪删除任务
+	*/
+	rpc RemoveTasksByTaskIds (RemoveTasksByTaskIdsRequest) returns (ExecuteResult){}
+	/**
+	*批量根据项目id伪删除任务
+	*/
+	rpc RemoveTasksByFolderId (RemoveTasksByFolderIdRequest) returns (ExecuteResult){}
+	/**
+	*批量修改指定项目id的所有任务冗余项目名
+	*/
+	rpc UpdateTasksFolderNameByFolderId (UpdateTasksFolderNameByFolderIdRequest) returns (ExecuteResult){}
+	/**
+	*解锁项目下所有任务的关系(将指定项目下的所有任务中冗余的folderid和foldername清空)
+	*/
+	rpc UnlockFolderAndTasks (UnlockFolderAndTasksRequest) returns (ExecuteResult){}
+}
+/**
+*操作执行结果
+*/
+message ExecuteResult {
+
+	/**
+	*操作是否执行成功
+	*/
+	bool isSuccess = 1;
+	/**
+	*错误信息
+	*/
+    string error = 2;
+}
+
+/**
+*任务搜索
+*/
+message  SearchTasksRequest{
+	/**
+	*操作用户
+	*/
+	string currentAId=1;
+	/**
+	*关联用户
+	*/
+	repeated  string relationAIds=2;
+	/**
+	*关键字
+	*/
+	string keyword=3;
+	/**
+	*网络id（与好友协作："",全部网络"all"）
+	*/
+	string projectId=4;
+	/**
+	*是否付费
+	*/
+	bool isPaid=5;
+	/**
+	*请求页码
+	*/
+	int32 pageIndex=6;
+	/**
+	*请求页面尺寸
+	*/
+	int32  pageSize=7;
+	/**
+	*开始时间（没有开始时间:0）
+	*/
+	int64  startTime=8;
+	/**
+	*截止时间（没有截止时间:0）
+	*/
+	int64  endTime=9;
+	/**
+	*高亮前缀
+	*/
+	string preTags=10;
+	/**
+	*高亮后缀
+	*/
+	string postTags=11;
+}
+message  SearchTasksResult{
+	string  AAA=1;
+}
+/**
+*添加附件
+*/
+message  AddAttachmentsIntoTaskRequest {
+	/**
+	*任务id
+	*/
+	string taskId=1;
+	/**
+	*附件集合
+	*/
+	repeated  Attachment atts=2;
+}
+/**
+*删除附件
+*/
+message RemoveAttachmentsInTaskRequest {
+	/**
+	*任务id
+	*/
+	string taskId=1;
+	/**
+	*附件id集合
+	*/
+	repeated string fileIds=2;
+}
+/**
+*添加讨论
+*/
+message  AddTaskDiscussionInTaskRequest {
+	/**
+	*任务id
+	*/
+	string taskId=1;
+	/**
+	*讨论id
+	*/
+	string discId=2;
+	/**
+	*讨论内容
+	*/
+	string message=3;
+	/**
+	*@到的人
+	*/
+	repeated string mentionedAIds=4;
+}
+/**
+*删除讨论
+*/
+message  RemoveTaskDiscussionRequest {
+	/**
+	*任务id
+	*/
+	string taskId=1;
+	/**
+	*讨论id
+	*/
+	string discId=2;
+}
+/**
+*修改任务
+*/
+message  UpdateTasksRequest {
+	/**
+	*修改任务对照表
+	*/
+	repeated  TaskMethod methods=1;
+}
+/**
+*批量增加任务
+*/
+message AddTasksRequest{
+	/**
+	*任务集合
+	*/
+	repeated  Task tasks=1;
+}
+
+/**
+*批量根据任务id伪删除任务
+*/
+message  RemoveTasksByTaskIdsRequest{
+	/**
+	*任务id集合
+	*/
+	repeated  string taskIds=1;
+}
+/**
+*批量根据项目id伪删除任务
+*/
+message RemoveTasksByFolderIdRequest{
+	/**
+	*项目id
+	*/
+	string folderId =1;
+}
+/**
+*批量修改指定项目id的所有任务冗余项目名
+*/
+message UpdateTasksFolderNameByFolderIdRequest{
+	/**
+	*项目id
+	*/
+	string folderId=1;
+	/**
+	*项目名称
+	*/
+	string folderName=2;
+}
+/**
+*解锁项目下所有任务的关系(将指定项目下的所有任务中冗余的folderid和foldername清空)
+*/
+message UnlockFolderAndTasksRequest{
+	/**
+	*项目id
+	*/
+	string folderId=1;
+}
+/**
+*附件
+*/
+message Attachment{
+	/**
+	*附件id
+	*/
+	string fileId=1;
+	/**
+	*附件内容
+	*/
+	string content=2;
+}
+
+message TaskMethod{
+	/**
+	*修改类型枚举
+	*/
+	enum Method{
+		/**
+		*无效
+		*/
+		Default  =0; 
+		/**
+		*替换UpdateTime
+		*/
+		Set_UpdateTime = 1;
+		/**
+		*替换CreateAccountId
+		*/
+        Set_CreateAccountId = 2;
+		/**
+		*替换TaskName
+		*/
+        Set_TaskName =3;
+		/**
+		*替换FolderId
+		*/
+        Set_FolderId=4;
+		/**
+		*替换FolderName
+		*/
+        Set_FolderName =5;
+		/**
+		*替换ParentId
+		*/
+        Set_ParentId=6;
+		/**
+		*替换Content
+		*/
+        Set_Content=7;
+		/**
+		*替换StartTime
+		*/
+        Set_StartTime =8;
+		/**
+		*替换EndTime
+		*/
+        Set_EndTime =9;
+		/**
+		*替换Charge
+		*/
+        Set_Charge=10;
+		/**
+		*替换Status
+		*/
+        Set_Status=11;
+		/**
+		*替换CompleteTime
+		*/
+        Set_CompleteTime=12;
+		/**
+		*替换Keywords
+		*/
+        Set_Keywords=13;
+		/**
+		*删除指定memberIds
+		*/
+        Pull_MemberIds=14;
+		/**
+		*添加指定memberIds
+		*/
+        Push_MemberIds=15;
+	
+	};
+	/**
+	*任务实体
+	*/
+	Task task=2;
+}
+
+/**
+*任务
+*/
+message  Task{
+	/**
+	*任务id
+	*/
+	string taskId=1;
+	/**
+	*任务名
+	*/
+	string taskName=2;
+	/**
+	*项目id
+	*/
+	string folderId=3;
+	/**
+	*项目名
+	*/
+    string folderName=4;
+	/**
+	*母任务id
+	*/
+    string parentId =5;
+	/**
+	*任务详情
+	*/
+	string content =6;
+	/**
+	*开始时间（无：0）
+	*/
+    int64  startTime =7;
+	/**
+	*截止时间（无：0）
+	*/
+    int64  endTime =8;
+	/**
+	*负责人id
+	*/
+    string chargeAId =9;
+	/**
+	*任务状态
+	*/
+    int32  status =10;
+	/**
+	*完成时间（无：0）
+	*/
+    int64  completeTime =11;
+	/**
+	*成员id集合
+	*/
+	repeated  string memberIds =12;
+	/**
+	*控件关键字
+	*/
+    repeated  string keywords =13;
+	/**
+	*appId
+	*/
+	string appId =14;
+	/**
+	*是否已删除
+	*/
+	bool isDeleted=15;
+	/**
+	*变更时间
+	*/
+	int64  updateTime=16;
+	/**
+	*创建时间
+	*/
+	int64 createTime =17;
+	/**
+	*网络id
+	*/
+	string projectId=18;
+	/**
+	*创建者id
+	*/
+	string createAId=19;
+}

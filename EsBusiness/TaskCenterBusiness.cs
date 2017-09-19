@@ -41,7 +41,7 @@ namespace EsBusiness
         //    get { return lazy.Value; }
         //}
         [Reroute(RerouteGroupType.GroupTwo)]
-        public ReturnResult SearchTasks(string currentAId, List<string> relationAId, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime)
+        public ReturnResult SearchTasks(string currentAId, List<string> relationAIds, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime, string preTags, string postTags)
         {
 
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -67,13 +67,13 @@ namespace EsBusiness
                         f => f.Content)
                     )
                 .Query(keyword))));
-            if (relationAId != null && relationAId.Count > 0)
+            if (relationAIds != null && relationAIds.Count > 0)
             {
                 qcOr |= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs
                     .Fields(
-                        f => f.Discussions.Any(o => o.MentionedAccountIds.Any(i => relationAId.Contains(i))),
-                        f => relationAId.Contains(f.CreateAccountID),
-                        f => f.MemberIds.Any(i => relationAId.Contains(i)))
+                        f => f.Discussions.Any(o => o.MentionedAccountIds.Any(i => relationAIds.Contains(i))),
+                        f => relationAIds.Contains(f.CreateAccountID),
+                        f => f.MemberIds.Any(i => relationAIds.Contains(i)))
                     )
                 )));
             }
@@ -128,11 +128,11 @@ namespace EsBusiness
             return re;
         }
         [Reroute]
-        public ReturnResult AddTaskDiscussion(string taskId, TaskDiscussion disc)
+        public ReturnResult AddTaskDiscussion(string taskId, string discId, string message, List<string> mentionedAIds)
         {
 
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            var result = client.Update<Task>(taskId, o => o.Script(NestExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Discussions, new List<TaskDiscussion> { disc })));
+            var result = client.Update<Task>(taskId, o => o.Script(NestExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Discussions, new List<TaskDiscussion> { new TaskDiscussion { DiscussionId = discId, MentionedAccountIds = mentionedAIds, Message = message } })));
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
@@ -199,7 +199,19 @@ namespace EsBusiness
         public ReturnResult RemoveTasksByTaskIds(List<string> taskIds)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            var result = client.DeleteMany<Task>(taskIds.Select(o => new Task { TaskId = o }));
+            //var result = client.DeleteMany<Task>(taskIds.Select(o => new Task { TaskId = o }));
+            var result = client.UpdateByQuery<Task>(o => o
+             .Query(q => q
+                .Term(m => m
+                    .Field(f => taskIds.Contains(f.TaskId)
+                        )
+                    )
+                )
+            .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
+            .Script(script => script
+                 .Inline(NestExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.IsDeleted, true))
+             )));
+
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
@@ -296,7 +308,6 @@ namespace EsBusiness
 
         public void CreateIndex()
         {
-
             if (!client.IndexExists(indexName).Exists)
             {
                 var c = client.CreateIndex(indexName, i => i.UpdateAllTypes().Mappings(ms => ms

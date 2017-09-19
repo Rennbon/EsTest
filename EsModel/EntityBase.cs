@@ -10,7 +10,7 @@ namespace EsEntity
     {
         [Keyword]
         [JsonProperty("appid")]
-        public string AppID { set; get; }
+        public string AppId { set; get; }
         [Boolean]
         [JsonProperty("isdel")]
         public bool IsDeleted { get; set; }

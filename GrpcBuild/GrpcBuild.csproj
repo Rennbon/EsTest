@@ -52,17 +52,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EsTask\build\ESTest.cs" />
-    <Compile Include="EsTask\build\ESTestGrpc.cs" />
+    <Compile Include="EsTask\build\ESService.cs" />
+    <Compile Include="EsTask\build\ESServiceGrpc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="EsTask\generate.bat" />
-    <None Include="EsTask\protos\EsTest.proto" />
+    <None Include="EsTask\protos\ESService.md" />
+    <None Include="EsTask\protos\ESService.proto" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Tools\protoc-gen-doc.exe" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Grpc.Core.1.6.0\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.6.0\build\net45\Grpc.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -27,6 +27,6 @@ namespace EsEntity
         public string ProjectId { set; get; }
         [Keyword]
         [JsonProperty("caid")]
-        public string CreateAccountID { get; set; }
+        public string CreateAccountId { get; set; }
     }
 }

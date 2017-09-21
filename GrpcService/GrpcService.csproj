@@ -6,7 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="GrpcBuild\" />
+    <PackageReference Include="Google.Protobuf" Version="3.4.1" />
+    <PackageReference Include="Grpc.Core" Version="1.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IESBusinessContract\IESBusinessContract.csproj" />
+    <ProjectReference Include="..\Interceptors\Interceptors.csproj" />
   </ItemGroup>
 
 </Project>

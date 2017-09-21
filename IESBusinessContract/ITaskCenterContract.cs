@@ -22,9 +22,7 @@ namespace IESBusinessContract
         /// <param name="startTime"></param>
         /// <param name="endTime"></param>
         /// <returns></returns>
-        ReturnResult SearchTasks(string currentAId, List<string> relationAId, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime, string preTags, string postTags);
-
-
+        ReturnResult<List<Task>> SearchTasks(string currentAId, List<string> relationAId, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime, string preTags, string postTags);
         /// <summary>
         /// 添加附件到任务
         /// </summary>
@@ -60,7 +58,7 @@ namespace IESBusinessContract
         /// </summary>
         /// <param name="methods"></param>
         /// <returns></returns>
-        ReturnResult UpdateTasks(List<TaskMethed> methods);
+        ReturnResult UpdateTasks(List<TaskMethod> methods);
         /// <summary>
         /// 批量新增任务
         /// </summary>

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace EsEntity.TaskCenterMethod
 {
-    public class TaskMethed
+    public class TaskMethod
     {
-        public EsEnum.TaskCenter.TaskMethodEnum Methed { set; get; }
+        public EsEnum.TaskCenter.TaskMethodEnum Method { set; get; }
         public TaskCenter.Task Task { set; get; }
     }
 }

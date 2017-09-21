@@ -56,13 +56,13 @@ service ESService {
 message ExecuteResult {
 
 	/**
-	*操作是否执行成功
+	*执行结果
 	*/
-	bool isSuccess = 1;
+	int32  code = 1;
 	/**
-	*错误信息
+	*信息
 	*/
-    string error = 2;
+    string msg = 2;
 }
 
 /**
@@ -114,8 +114,23 @@ message  SearchTasksRequest{
 	*/
 	string postTags=11;
 }
-message  SearchTasksResult{
-	string  AAA=1;
+
+/**
+*任务搜索返回值
+*/
+message  SearchTasksResult{	
+	/**
+	*执行结果
+	*/
+	int32  code = 1;
+	/**
+	*信息
+	*/
+    string msg = 2;
+	/**
+	*任务集合
+	*/
+	repeated  TaskDto tasks=3;
 }
 /**
 *添加附件
@@ -322,6 +337,10 @@ message TaskMethod{
 	
 	};
 	/**
+	*修改类型枚举
+	*/
+	Method method=1;
+	/**
 	*任务实体
 	*/
 	Task task=2;
@@ -407,4 +426,33 @@ message  Task{
 	*创建者id
 	*/
 	string createAId=19;
+}
+/**
+*任务返回信息
+*/
+message TaskDto{
+	/**
+	*任务id
+	*/
+	string taskId=1;
+	/**
+	*创建者id
+	*/
+	string createAid=2;
+	/**
+	*任务名
+	*/
+	string taskName =3;
+	/**
+	*任务内容
+	*/
+	string content=4;
+	/**
+	*网络Id
+	*/
+	string projectId=5;
+	/**
+	*创建时间
+	*/
+	int64  createTime=6;
 }

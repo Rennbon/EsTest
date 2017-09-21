@@ -41,10 +41,9 @@ namespace EsBusiness
         //    get { return lazy.Value; }
         //}
         [Reroute(RerouteGroupType.GroupTwo)]
-        public ReturnResult SearchTasks(string currentAId, List<string> relationAIds, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime, string preTags, string postTags)
+        public ReturnResult<List<Task>> SearchTasks(string currentAId, List<string> relationAIds, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime, string preTags, string postTags)
         {
-
-            ReturnResult re = new ReturnResult(ResultCode.Error);
+            ReturnResult<List<Task>> re = new ReturnResult<List<Task>>(ResultCode.Error);
             QueryContainer qcAnd = Query<Task>.Bool(b => b.Must(m => m.Term(t => t.Field(f => f.IsDeleted == false && f.MemberIds.Contains(currentAId)))));
             if (projectId != "all")
             {
@@ -72,7 +71,7 @@ namespace EsBusiness
                 qcOr |= Query<Task>.Bool(b => b.Must(s => s.MultiMatch(m => m.Fields(fs => fs
                     .Fields(
                         f => f.Discussions.Any(o => o.MentionedAccountIds.Any(i => relationAIds.Contains(i))),
-                        f => relationAIds.Contains(f.CreateAccountID),
+                        f => relationAIds.Contains(f.CreateAccountId),
                         f => f.MemberIds.Any(i => relationAIds.Contains(i)))
                     )
                 )));
@@ -83,7 +82,13 @@ namespace EsBusiness
             }
 
             var result = client.Search<Task>(o => o
-           .Source(source => source.Includes(include => include.Fields(field => field.CreateAccountID, field => field.TaskName, field => field.Content, field => field.ProjectId, field => field.CreateTime)))
+           .Source(source => source.Includes(include => include.Fields(
+               field => field.TaskId,
+               field => field.CreateAccountId,
+               field => field.TaskName,
+               field => field.Content,
+               field => field.ProjectId,
+               field => field.CreateTime)))
            .Query(_ => qcAnd & qcOr)
                .From(pageIndex - 1)
                .Size(pageSize)
@@ -100,7 +105,7 @@ namespace EsBusiness
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
-                re.data = result.Documents;
+                re.data = result.Documents.ToList();
             }
             return re;
         }
@@ -158,10 +163,10 @@ namespace EsBusiness
         /// <param name="methods"></param>
         /// <returns></returns>
         [Reroute]
-        public ReturnResult UpdateTasks(List<TaskMethed> methods)
+        public ReturnResult UpdateTasks(List<TaskMethod> methods)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            var tidsNeedSearch = methods.Where(o => o.Methed == TaskMethodEnum.Pull_MemberIds || o.Methed == TaskMethodEnum.Push_MemberIds).Select(o => o.Task.TaskId).ToList();
+            var tidsNeedSearch = methods.Where(o => o.Method == TaskMethodEnum.Pull_MemberIds || o.Method == TaskMethodEnum.Push_MemberIds).Select(o => o.Task.TaskId).ToList();
             var tasks = client.Search<Task>(sq => sq
             .Source(include => include.Includes(ics => ics.Fields(f => f.MemberIds)))
             .Query(q => q.Term(t => t.Field(f => tidsNeedSearch.Contains(f.TaskId))))

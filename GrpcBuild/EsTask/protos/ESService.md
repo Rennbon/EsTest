@@ -16,6 +16,7 @@
     - [SearchTasksRequest](#Elasticsearch.SearchTasksRequest)
     - [SearchTasksResult](#Elasticsearch.SearchTasksResult)
     - [Task](#Elasticsearch.Task)
+    - [TaskDto](#Elasticsearch.TaskDto)
     - [TaskMethod](#Elasticsearch.TaskMethod)
     - [UnlockFolderAndTasksRequest](#Elasticsearch.UnlockFolderAndTasksRequest)
     - [UpdateTasksFolderNameByFolderIdRequest](#Elasticsearch.UpdateTasksFolderNameByFolderIdRequest)
@@ -111,8 +112,8 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| isSuccess | [bool](#bool) |  | 操作是否执行成功 |
-| error | [string](#string) |  | 错误信息 |
+| code | [int32](#int32) |  | 执行结果 |
+| msg | [string](#string) |  | 信息 |
 
 
 
@@ -209,12 +210,14 @@
 <a name="Elasticsearch.SearchTasksResult"/>
 
 ### SearchTasksResult
-
+任务搜索返回值
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| AAA | [string](#string) |  |  |
+| code | [int32](#int32) |  | 执行结果 |
+| msg | [string](#string) |  | 信息 |
+| tasks | [TaskDto](#Elasticsearch.TaskDto) | repeated | 任务集合 |
 
 
 
@@ -254,6 +257,26 @@
 
 
 
+<a name="Elasticsearch.TaskDto"/>
+
+### TaskDto
+任务返回信息
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| taskId | [string](#string) |  | 任务id |
+| createAid | [string](#string) |  | 创建者id |
+| taskName | [string](#string) |  | 任务名 |
+| content | [string](#string) |  | 任务内容 |
+| projectId | [string](#string) |  | 网络Id |
+| createTime | [int64](#int64) |  | 创建时间 |
+
+
+
+
+
+
 <a name="Elasticsearch.TaskMethod"/>
 
 ### TaskMethod
@@ -262,6 +285,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| method | [TaskMethod.Method](#Elasticsearch.TaskMethod.Method) |  | 修改类型枚举 |
 | task | [Task](#Elasticsearch.Task) |  | 任务实体 |
 
 

@@ -15,13 +15,13 @@ namespace EsBusiness.Helper
     /// </summary>
     public class TaskCenterHelper
     {
-        public static BulkRequest GetUpdateBulkRequest(List<TaskMethed> methods, IEnumerable<Task> tasks)
+        public static BulkRequest GetUpdateBulkRequest(List<TaskMethod> methods, IEnumerable<Task> tasks)
         {
             BulkRequest bulkRequest = new BulkRequest() { Operations = new List<IBulkOperation>() };
             foreach (var item in methods)
             {
                 var operation = new BulkUpdateOperation<Task, object>(item.Task.TaskId);
-                switch (item.Methed)
+                switch (item.Method)
                 {
                     case EsEnum.TaskCenter.TaskMethodEnum.Pull_MemberIds:
                         var pullMemberIds = GetMemberIds(tasks, item.Task.TaskId).Except(item.Task.MemberIds).ToList();
@@ -42,7 +42,7 @@ namespace EsBusiness.Helper
                         operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.Content, item.Task.Content);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_CreateAccountId:
-                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.CreateAccountID, item.Task.CreateAccountID);
+                        operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.CreateAccountId, item.Task.CreateAccountId);
                         break;
                     case EsEnum.TaskCenter.TaskMethodEnum.Set_EndTime:
                         operation.Doc = NestExtends<Task>.DeserializeObjectToSet(o => o.EndTime, item.Task.EndTime);

@@ -20,7 +20,7 @@ namespace EsEntity.TaskCenter
         /// 任务id
         /// </summary>
         [Keyword]
-        [JsonProperty("id")]
+        [JsonProperty("id", Required = Required.Always)]
         public string TaskId { get; set; }
         /// <summary>
         /// 任务名

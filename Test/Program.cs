@@ -19,7 +19,7 @@ namespace Test
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 
-            var list = client.SearchTasks("ta", null, "中国人", "all", true, 0, 100, null, null);
+            var list = client.SearchTasks("ta", null, "中国人", "all", true, 0, 100, null, null, null, null);
             //string a = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.SSS");
             //IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
             ////这里使用自定义日期格式，如果不使用的话，默认是ISO8601格式  
@@ -63,7 +63,7 @@ namespace Test
                     ChargeAccountId = "wo",
                     CompleteTime = DateTime.Now,
                     Content = "今天要拿fist blood",
-                    CreateAccountID = "wo",
+                    CreateAccountId = "wo",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(20),
                     FolderId = "f1",
@@ -114,7 +114,7 @@ namespace Test
                     ChargeAccountId = "ni",
                     CompleteTime = DateTime.Now,
                     Content = "关二哥脸好红，一定是看黄书了",
-                    CreateAccountID = "ni",
+                    CreateAccountId = "ni",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -165,7 +165,7 @@ namespace Test
                     ChargeAccountId = "ni",
                     CompleteTime = DateTime.Now,
                     Content = "发哥附身,逢赌必胜",
-                    CreateAccountID = "ni",
+                    CreateAccountId = "ni",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -216,7 +216,7 @@ namespace Test
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "周星星的功夫到底拍的如何",
-                    CreateAccountID = "ta",
+                    CreateAccountId = "ta",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -268,7 +268,7 @@ namespace Test
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "github 代码管理方案",
-                    CreateAccountID = "ta",
+                    CreateAccountId = "ta",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -321,7 +321,7 @@ namespace Test
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "太白菜大神的流水账",
-                    CreateAccountID = "ta",
+                    CreateAccountId = "ta",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -373,7 +373,7 @@ namespace Test
                     ChargeAccountId = "wo",
                     CompleteTime = DateTime.Now,
                     Content = "测试插到死，数据啊数据",
-                    CreateAccountID = "ni",
+                    CreateAccountId = "ni",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -424,7 +424,7 @@ namespace Test
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "老本很坚固了，不会爆的",
-                    CreateAccountID = "ta",
+                    CreateAccountId = "ta",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -476,7 +476,7 @@ namespace Test
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "回收孔调，电脑，电冰箱",
-                    CreateAccountID = "ta",
+                    CreateAccountId = "ta",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -529,7 +529,7 @@ namespace Test
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "高富帅，土肥圆，白富美，穷挫矮",
-                    CreateAccountID = "ta",
+                    CreateAccountId = "ta",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -581,7 +581,7 @@ namespace Test
                     ChargeAccountId = "ta",
                     CompleteTime = DateTime.Now,
                     Content = "别人休假我加班，保险自己缴，房贷没资格，幸好不用付停车费，因为我根本没有车",
-                    CreateAccountID = "ta",
+                    CreateAccountId = "ta",
                     CreateTime = DateTime.Now,
                     EndTime = DateTime.Now.AddDays(28),
                     FolderId = "f1",
@@ -639,7 +639,7 @@ namespace Test
                 ChargeAccountId = "wo",
                 CompleteTime = DateTime.Now,
                 Content = "今天是个好日子",
-                CreateAccountID = "wo",
+                CreateAccountId = "wo",
                 CreateTime = DateTime.Now,
                 EndTime = DateTime.Now.AddDays(30),
                 FolderId = "f1",
@@ -710,19 +710,19 @@ namespace Test
             #endregion removetask
 
             #region updateTask
-            List<EsEntity.TaskCenterMethod.TaskMethed> metheds = new List<EsEntity.TaskCenterMethod.TaskMethed>();
-            metheds.Add(new EsEntity.TaskCenterMethod.TaskMethed
+            List<EsEntity.TaskCenterMethod.TaskMethod> metheds = new List<EsEntity.TaskCenterMethod.TaskMethod>();
+            metheds.Add(new EsEntity.TaskCenterMethod.TaskMethod
             {
-                Methed = EsEnum.TaskCenter.TaskMethodEnum.Set_TaskName,
+                Method = EsEnum.TaskCenter.TaskMethodEnum.Set_TaskName,
                 Task = new EsEntity.TaskCenter.Task
                 {
                     TaskId = "t1",
                     TaskName = "任务名改11111"
                 }
             });
-            metheds.Add(new EsEntity.TaskCenterMethod.TaskMethed
+            metheds.Add(new EsEntity.TaskCenterMethod.TaskMethod
             {
-                Methed = EsEnum.TaskCenter.TaskMethodEnum.Push_MemberIds,
+                Method = EsEnum.TaskCenter.TaskMethodEnum.Push_MemberIds,
                 Task = new EsEntity.TaskCenter.Task
                 {
                     TaskId = "t2",

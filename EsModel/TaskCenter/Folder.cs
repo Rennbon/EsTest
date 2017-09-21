@@ -10,7 +10,7 @@ namespace EsEntity.TaskCenter
     /// <summary>
     /// 项目实体
     /// </summary>
-    [ElasticsearchType(Name = EsSysConfig.TypeNameFolder, IdProperty = nameof(FolderID))]
+    [ElasticsearchType(Name = StaticConfig.TypeNameFolder, IdProperty = nameof(FolderID))]
     [Serializable]
     public class Folder : EntityBase
     {

@@ -12,7 +12,7 @@ namespace EsEntity.TaskCenter
     /// <summary>
     /// 任务实体
     /// </summary>
-    [ElasticsearchType(Name = EsSysConfig.TypeNameTask, IdProperty = nameof(TaskId))]
+    [ElasticsearchType(Name = StaticConfig.TypeNameTask, IdProperty = nameof(TaskId))]
     [Serializable]
     public class Task : EntityBase
     {

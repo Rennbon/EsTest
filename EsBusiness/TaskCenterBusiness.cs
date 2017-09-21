@@ -27,8 +27,8 @@ namespace EsBusiness
     public class TaskCenterBusiness : EsBase.EsDomain, ITaskCenterContract
     {
 
-        private static string indexName = ESFramework.EsSysConfig.IndexNameTaskCenter;
-        private static IEnumerable<string> taskCenterUrl = ESFramework.EsSysConfig.TaskCenterUrl;
+        private static string indexName = ESFramework.StaticConfig.IndexNameTaskCenter;
+        private static IEnumerable<string> taskCenterUrl = ESFramework.StaticConfig.TaskCenterUrl;
         public TaskCenterBusiness() : base(indexName, taskCenterUrl)
         {
         }

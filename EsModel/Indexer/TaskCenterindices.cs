@@ -17,7 +17,7 @@ namespace EsEntity.Indexer
         public static Func<CreateIndexDescriptor, ICreateIndexRequest> FolderMappingSelector = i => i.Mappings(ms => ms.Map<Folder>(m => m.AutoMap()));
 
 
-        public static CreateIndexDescriptor TaskCentnerMappingSelector = new CreateIndexDescriptor(EsSysConfig.IndexNameTaskCenter)
+        public static CreateIndexDescriptor TaskCentnerMappingSelector = new CreateIndexDescriptor(StaticConfig.IndexNameTaskCenter)
         .Mappings(ms => ms
             .Map<Task>(m => m.AutoMap())
         );

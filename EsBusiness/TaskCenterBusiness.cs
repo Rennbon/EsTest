@@ -93,8 +93,8 @@ namespace EsBusiness
                .From(pageIndex - 1)
                .Size(pageSize)
                .Highlight(hl => hl
-                   .PreTags("<tag>")
-                   .PostTags("</tag>")
+                   .PreTags(preTags)
+                   .PostTags(postTags)
                    .Fields(fs => fs
                        .Field(f => f.TaskName)
                        .Field(f => f.Content)
@@ -113,14 +113,16 @@ namespace EsBusiness
         public ReturnResult AddAttachmentsIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
-            var result = client.Update<Task>(taskId, o => o.Script(NestExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)));
+            //var result = client.Update<Task>(taskId, o => o.Script(NestExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)));
+            var bulkRequest = Helper.TaskCenterHelper.AddAttachmentsIntoTask(taskId,list);
+            var result = client.Bulk(bulkRequest);
             if (result.IsValid)
             {
                 re.code = ResultCode.Success;
             }
             return re;
         }
-        [Reroute]
+        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult RemoveAttachmentsInTask(string taskId, List<string> fileIds)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -132,7 +134,7 @@ namespace EsBusiness
             }
             return re;
         }
-        [Reroute]
+        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult AddTaskDiscussion(string taskId, string discId, string message, List<string> mentionedAIds)
         {
 
@@ -144,7 +146,7 @@ namespace EsBusiness
             }
             return re;
         }
-        [Reroute]
+        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult RemoveTaskDiscussion(string taskId, string discId)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -162,7 +164,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="methods"></param>
         /// <returns></returns>
-        [Reroute]
+        [Reroute(RerouteGroupType.GroupOne)]
         public ReturnResult UpdateTasks(List<TaskMethod> methods)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -184,7 +186,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="tasks"></param>
         /// <returns></returns>
-        [Reroute]
+        [Reroute(RerouteGroupType.GroupOne)]
         public ReturnResult AddTasks(List<Task> tasks)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);

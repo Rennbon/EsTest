@@ -88,7 +88,25 @@ namespace EsBusiness.Helper
             }
             return bulkRequest;
         }
-
+        public static BulkRequest AddAttachmentsIntoTask(string taskId, IEnumerable<EsEntity.TaskCenter.InnerModel.Attachment> list)
+        {
+            BulkRequest bulkRequest = new BulkRequest() { Operations = new List<IBulkOperation>() };
+            foreach (var item in list)
+            {
+                if (string.IsNullOrEmpty(item.AttContent))
+                {
+                    //推到附件服务
+                }
+                else
+                {
+                    var operation = new BulkUpdateOperation<Task, object>(taskId);
+                    //client.Update<Task>(taskId, o => o.Script(NestExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)));
+                    operation.Script = NestExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, new List<EsEntity.TaskCenter.InnerModel.Attachment> { item }).Invoke(new ScriptDescriptor());
+                    bulkRequest.Operations.Add(operation);
+                }
+            }
+            return bulkRequest;
+        }
 
 
         private static List<string> GetMemberIds(IEnumerable<Task> tasks, string taskId)

@@ -19,7 +19,6 @@ namespace GrpcService
         {
             taskCenterService = InterceptIWindsor.Instance.Resolve<ITaskCenterContract>();
         }
-
         /// <summary>
         ///*
         ///发送讨论

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Elasticsearch;
+using Grpc.Core;
+using System;
 
 namespace GrpcService
 {
@@ -6,7 +8,21 @@ namespace GrpcService
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var taskCenterService = ESService.BindService(new ESServiceImpl());
+
+            int port = 0;
+            string host = string.Empty;
+            Server server = new Server
+            {
+                Services = {
+                    taskCenterService
+                },
+                Ports = { new ServerPort(host, port, ServerCredentials.Insecure) }
+            };
+            server.Start();
+
+            Console.WriteLine($"Listening on port {port}");
+            server.ShutdownTask.Wait();
         }
     }
 }

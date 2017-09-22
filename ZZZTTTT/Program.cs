@@ -11,7 +11,7 @@ namespace ZZZTTTT
         static void Main(string[] args)
         {
             long a = GetTimeStampMilliseconds(DateTime.Now);
-           
+            string b;
             Console.WriteLine(DateTime.FromBinary(0));
             Console.Read();
         }

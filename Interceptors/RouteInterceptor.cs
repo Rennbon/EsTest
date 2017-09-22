@@ -29,6 +29,8 @@ namespace Interceptors
                     group = rerouteAb.Group;
                 }
             }
+            invocation.Proceed();
+            return;
             if (reroute)
             {
                 string name = invocation.Method.Name;

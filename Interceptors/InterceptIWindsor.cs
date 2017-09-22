@@ -20,6 +20,7 @@ namespace Interceptors
         private InterceptIWindsor()
         {
             container = new WindsorContainer();
+
             container.Register(Component.For<IInterceptor>().ImplementedBy<RouteInterceptor>());
 
             container.Register(Classes.FromAssemblyNamed("EsBusiness")

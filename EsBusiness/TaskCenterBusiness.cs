@@ -26,10 +26,8 @@ namespace EsBusiness
     [Interceptor(typeof(RouteInterceptor))]
     public class TaskCenterBusiness : EsBase.EsDomain, ITaskCenterContract
     {
-
         private static string indexName = ESFramework.StaticConfig.IndexNameTaskCenter;
-        private static IEnumerable<string> taskCenterUrl = ESFramework.StaticConfig.TaskCenterUrl;
-        public TaskCenterBusiness() : base(indexName, taskCenterUrl)
+        public TaskCenterBusiness() : base(indexName, ESFramework.StaticConfig.TaskCenterUrls)
         {
         }
         //private static readonly Lazy<TaskCenterBusiness> lazy =

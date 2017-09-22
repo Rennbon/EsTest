@@ -6,9 +6,8 @@ namespace ESFramework
 {
     public static class StaticConfig
     {
-        public static IEnumerable<string> TaskCenterUrl => new List<string>{    "http://localhost:9200",
-        "http://localhost:9201",
-        "http://localhost:9202" };
+        public static IEnumerable<string> TaskCenterUrls => JsonConfigReader.Configuration.GetSection("ESUrls:TaskCenterUrls").Value.Split("|");
+
 
         public const string IndexNameTaskCenter = "taskcenter";
         public const string TypeNameTask = "task";

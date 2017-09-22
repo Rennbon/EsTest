@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Interceptors;
 using IESBusinessContract;
+using ESFramework;
 
 namespace Test
 {
@@ -14,12 +15,14 @@ namespace Test
     {
         static void Main(string[] args)
         {
+
             ITaskCenterContract client = InterceptIWindsor.Instance.Resolve<ITaskCenterContract>();
             //TaskCenterBusiness.Instance.CreateIndex();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 
-            var list = client.SearchTasks("ta", null, "中国人", "all", true, 0, 100, null, null, null, null);
+            var list = client.SearchTasks("ta", null, "中国人", "all", true, 0, 100, null, null,"<tag>","</tag>");
+            return;
             //string a = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.SSS");
             //IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
             ////这里使用自定义日期格式，如果不使用的话，默认是ISO8601格式  
@@ -53,8 +56,8 @@ namespace Test
 
 
             #region TASKCENTER
-            //TaskCenterBusiness.Instance.CreateIndex();
-            return;
+            client.CreateIndex();
+            //return;
             #region addtask
             List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>() {
                 new EsEntity.TaskCenter.Task
@@ -686,22 +689,10 @@ namespace Test
                     FileId="2"
                 }
                 };
-            //for (var n = 0; n < 150; n++)
-            //{
-            //Parallel.For(1, 100, n =>
-            //{
-            //    EsEntity.TaskCenter.InnerModel.Attachment att = new EsEntity.TaskCenter.InnerModel.Attachment
-            //    {
-            //        FileId = DateTime.Now.Millisecond.ToString(),
-            //        AttContent = GetRandomStr(300)
-            //    };
-            //    task.Attachments.Add(att);
-            //});
             tasks.Add(task);
 
 
-            //TaskCenterBusiness.Instance.AddTasks(tasks);
-            //}
+            client.AddTasks(tasks);
 
             #endregion addtask
             return;

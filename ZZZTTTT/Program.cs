@@ -10,9 +10,12 @@ namespace ZZZTTTT
     {
         static void Main(string[] args)
         {
-            long a = GetTimeStampMilliseconds(DateTime.Now);
-            string b;
-            Console.WriteLine(DateTime.FromBinary(0));
+            //long a = GetTimeStampMilliseconds(DateTime.Now);
+            //string b;
+            //Console.WriteLine(DateTime.FromBinary(0));
+
+            List<int> a = new List<int> { 1, 2, 3 };
+            var b = a.GetRange(1, a.Count-1);
             Console.Read();
         }
         static long GetTimeStampMilliseconds(DateTime _this)

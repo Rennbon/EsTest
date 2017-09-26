@@ -7,12 +7,12 @@ using System.Collections;
 namespace ESMemoryCache
 {
     /// <summary>
-    /// 运行时内存缓存
+    /// 运行时内存缓存（单例)
     /// </summary>
     public class RuntimeMemoryCache : CacheBase
     {
         private readonly string _region;
-        private readonly MemoryCache _cache;
+        private static MemoryCache _cache;
 
         /// <summary>
         /// 初始化一个<see cref="RuntimeMemoryCache"/>类型的新实例
@@ -20,7 +20,10 @@ namespace ESMemoryCache
         public RuntimeMemoryCache(string region)
         {
             _region = region;
-            _cache = new MemoryCache(new MemoryCacheOptions());
+            if (_cache == null)
+            {
+                _cache = new MemoryCache(new MemoryCacheOptions());
+            }
         }
 
         /// <summary>
@@ -81,7 +84,7 @@ namespace ESMemoryCache
         {
             string cacheKey = GetCacheKey(key);
             DictionaryEntry entry = new DictionaryEntry(key, value);
-            _cache.Set(cacheKey, entry, new MemoryCacheEntryOptions
+            var result = _cache.Set(cacheKey, entry, new MemoryCacheEntryOptions
             {
                 AbsoluteExpiration = absoluteExpiration
             });
@@ -97,7 +100,7 @@ namespace ESMemoryCache
         {
             string cacheKey = GetCacheKey(key);
             DictionaryEntry entry = new DictionaryEntry(key, value);
-            _cache.Set(cacheKey, entry, new MemoryCacheEntryOptions
+            var result = _cache.Set(cacheKey, entry, new MemoryCacheEntryOptions
             {
                 SlidingExpiration = slidingExpiration
             });

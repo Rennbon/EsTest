@@ -21,15 +21,21 @@ namespace Test
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 
-            var list = client.SearchTasks("ta", null, "中国人", "all", true, 0, 100, null, null,"<tag>","</tag>");
-            return;
+            //var list = client.SearchTasks("ta", null, "中国人", "all", true, 0, 100, null, null,"<tag>","</tag>");
+
             //string a = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.SSS");
             //IsoDateTimeConverter timeConverter = new IsoDateTimeConverter();
             ////这里使用自定义日期格式，如果不使用的话，默认是ISO8601格式  
             //timeConverter.DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
             //string serialStr = JsonConvert.SerializeObject(DateTime.Now, Formatting.Indented, timeConverter);
-
-            //TaskCenterBusiness.Instance.AddAttachmentIntoTask("t2", new List<string> { "yige kw", "还有kw", "无语了" });
+            client.RemoveAttachmentsInTask("t3", new List<string> { "aa", "bb", "cc" });
+            client.AddAttachmentsIntoTask("t3",new List<EsEntity.TaskCenter.InnerModel.Attachment>() {
+                new EsEntity.TaskCenter.InnerModel.Attachment(){ FileId="aa",AttContent="哈哈哈"},
+                new EsEntity.TaskCenter.InnerModel.Attachment{ FileId="bb",AttContent="呵呵呵"},
+                new EsEntity.TaskCenter.InnerModel.Attachment{ FileId="cc",AttContent="嘿嘿嘿"} 
+            });
+            
+            return;
             //TaskCenterBusiness.Instance.SearchTasks();
             //TaskCenterBusiness.Instance.RemoveAttachmentsInTask("t3", new List<string> { "10002", "10003", "10004" });
 
@@ -56,7 +62,7 @@ namespace Test
 
 
             #region TASKCENTER
-            client.CreateIndex();
+            //client.CreateIndex();
             //return;
             #region addtask
             List<EsEntity.TaskCenter.Task> tasks = new List<EsEntity.TaskCenter.Task>() {
@@ -692,10 +698,10 @@ namespace Test
             tasks.Add(task);
 
 
-            client.AddTasks(tasks);
+            //client.AddTasks(tasks);
 
             #endregion addtask
-            return;
+            //return;
             #region removetask
             //TaskCenterBusiness.Instance.RemoveTasks(new List<string> { "t1","t2"});
             #endregion removetask

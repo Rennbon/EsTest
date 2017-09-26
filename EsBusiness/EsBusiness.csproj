@@ -17,6 +17,7 @@
     <ProjectReference Include="..\EsModel\EsEntity.csproj" />
     <ProjectReference Include="..\IESBusinessContract\IESBusinessContract.csproj" />
     <ProjectReference Include="..\Interceptors\Interceptors.csproj" />
+    <ProjectReference Include="..\MemoryCache\ESMemoryCache.csproj" />
   </ItemGroup>
 
 </Project>

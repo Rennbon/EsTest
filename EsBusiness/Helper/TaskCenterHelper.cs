@@ -7,6 +7,7 @@ using Nest;
 using ESFramework.Estensions;
 using System.Linq;
 using EsBusiness.EsBase;
+using ESMemoryCache;
 
 namespace EsBusiness.Helper
 {
@@ -80,8 +81,10 @@ namespace EsBusiness.Helper
         public static BulkRequest GetRemoveTaskAttsInArrayBulkRequest(string taskId, IEnumerable<string> fileIds)
         {
             BulkRequest bulkRequest = new BulkRequest() { Operations = new List<IBulkOperation>() };
+            RuntimeMemoryCache cache = new RuntimeMemoryCache(MemoryRegionKeys.Attachment);
             foreach (var item in fileIds)
             {
+                cache.Set(item, 1, new TimeSpan(0, 5, 0));
                 var operation = new BulkUpdateOperation<Task, object>(taskId);
                 operation.Script = NestExtends<Task>.GetScriptInlineToRemoveFisrtElementById(sp => sp.Attachments.First().FileId, item).Invoke(new ScriptDescriptor());
                 bulkRequest.Operations.Add(operation);
@@ -91,8 +94,14 @@ namespace EsBusiness.Helper
         public static BulkRequest AddAttachmentsIntoTask(string taskId, IEnumerable<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {
             BulkRequest bulkRequest = new BulkRequest() { Operations = new List<IBulkOperation>() };
+            RuntimeMemoryCache cache = new RuntimeMemoryCache(MemoryRegionKeys.Attachment);
             foreach (var item in list)
             {
+                var result = cache.Get(item.FileId);
+                if (result != null)
+                {
+                    continue;
+                }
                 if (string.IsNullOrEmpty(item.AttContent))
                 {
                     //推到附件服务

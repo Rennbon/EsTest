@@ -113,10 +113,13 @@ namespace EsBusiness
             ReturnResult re = new ReturnResult(ResultCode.Error);
             //var result = client.Update<Task>(taskId, o => o.Script(NestExtends<Task>.GetScriptInlineToAddFisrtElement(sp => sp.Attachments, list)));
             var bulkRequest = Helper.TaskCenterHelper.AddAttachmentsIntoTask(taskId,list);
-            var result = client.Bulk(bulkRequest);
-            if (result.IsValid)
+            if (bulkRequest.Operations.Count > 0)
             {
-                re.code = ResultCode.Success;
+                var result = client.Bulk(bulkRequest);
+                if (result.IsValid)
+                {
+                    re.code = ResultCode.Success;
+                }
             }
             return re;
         }

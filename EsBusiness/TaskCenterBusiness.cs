@@ -38,7 +38,6 @@ namespace EsBusiness
         //{
         //    get { return lazy.Value; }
         //}
-        [Reroute(RerouteGroupType.GroupTwo)]
         public ReturnResult<List<Task>> SearchTasks(string currentAId, List<string> relationAIds, string keyword, string projectId, bool isPaid, int pageIndex, int pageSize, DateTime? startTime, DateTime? endTime, string preTags, string postTags)
         {
             ReturnResult<List<Task>> re = new ReturnResult<List<Task>>(ResultCode.Error);

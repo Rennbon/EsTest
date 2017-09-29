@@ -29,15 +29,15 @@ namespace Interceptors
                     group = rerouteAb.Group;
                 }
             }
-            invocation.Proceed();
-            return;
+            //invocation.Proceed();
+            //return;
             if (reroute)
             {
                 string name = invocation.Method.Name;
                 object[] arguments = invocation.Arguments;
                 Type reflectedType = invocation.MethodInvocationTarget.ReflectedType;
                 ReflectionMap reflectionMap = new ReflectionMap(name, arguments, reflectedType);
-                RedisProvider.ESMethod.AddItemToList<ReflectionMap>(RedisKeys.ESCRDKey, reflectionMap);
+                RedisProvider.ESMethod.AddItemToList<ReflectionMap>(RedisKeys.ESCRDKey + group, reflectionMap);
 
                 //反射调用方法（后续服务逻辑，千万别打开注释）
                 //object obj = Activator.CreateInstance(reflectedType, true);

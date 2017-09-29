@@ -26,10 +26,6 @@ namespace Interceptors
             container.Register(Classes.FromAssemblyNamed("EsBusiness")
                      .BasedOn<IContract>().WithService.FromInterface());
 
-            //container.Register(Classes.FromAssemblyNamed("IESBusinessContract")  
-            //                .Pick()
-            //                .If(t => t.Name.EndsWith("Contract"))
-            //                .WithService.DefaultInterfaces());
         }
     }
 }

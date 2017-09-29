@@ -10,13 +10,25 @@ namespace ZZZTTTT
     {
         static void Main(string[] args)
         {
+            //string a = "123";
+            List<int> a = new List<int>();
+            //int? a = 1;
+            Type type =a.GetType();
+            if (type.IsValueType)
+            {
+                var b = Activator.CreateInstance(type);
+            }
+            else
+            {
+              
+            }
             //long a = GetTimeStampMilliseconds(DateTime.Now);
             //string b;
             //Console.WriteLine(DateTime.FromBinary(0));
 
-            List<int> a = new List<int> { 1, 2, 3 };
-            var b = a.GetRange(1, a.Count-1);
-            Console.Read();
+            //List<int> a = new List<int> { 1, 2, 3 };
+            //var b = a.GetRange(1, a.Count-1);
+            //Console.Read();
         }
         static long GetTimeStampMilliseconds(DateTime _this)
         {

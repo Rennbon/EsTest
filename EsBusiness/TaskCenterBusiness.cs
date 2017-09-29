@@ -303,7 +303,7 @@ namespace EsBusiness
                 )
             .Conflicts(Elasticsearch.Net.Conflicts.Proceed)
             .Script(script => script
-                .Inline(NestExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderId, string.Empty), new TypeFeild<Task>(tf => tf.FolderName, string.Empty))
+                .Inline(NestExtends<Task>.GetScriptInlineToSet("ctx._source", new TypeFeild<Task>(tf => tf.FolderId, string.Empty), new TypeFeild<Task>(tf => tf.FolderName, string.Empty),new TypeFeild<Task>(tf=>tf.Keywords,new List<string> { }), new TypeFeild<Task>(tf => tf.UpdateTime,DateTime.Now))
             )));
             if (result.IsValid)
             {

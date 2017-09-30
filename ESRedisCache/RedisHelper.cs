@@ -188,10 +188,10 @@ namespace ESRedisCache
             {
                 string item = redis.PopItemFromList(key.ToLower());
                 T t = default(T);
-                if (string.IsNullOrEmpty(item))
+                if (!string.IsNullOrEmpty(item))
                 {
                     t = JsonConvert.DeserializeObject<T>(item);
-                }
+                }   
                 return t;
             }
         }

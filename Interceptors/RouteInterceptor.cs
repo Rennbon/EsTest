@@ -16,11 +16,11 @@ namespace Interceptors
         public void Intercept(IInvocation invocation)
         {
             var reroute = false;
-            RerouteGroupType group = RerouteGroupType.Defualt;
-            var rerouteAb = invocation.MethodInvocationTarget.GetCustomAttribute<RerouteAttribute>();
+            TaskMQQroup group = TaskMQQroup.Defualt;
+            var rerouteAb = invocation.MethodInvocationTarget.GetCustomAttribute<TCRerouteAttribute>();
             if (rerouteAb != null)
             {
-                if (rerouteAb.Group != RerouteGroupType.Defualt)
+                if (rerouteAb.Group != TaskMQQroup.Defualt)
                 {
                     reroute = true;
                 }

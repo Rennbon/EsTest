@@ -106,7 +106,7 @@ namespace EsBusiness
             }
             return re;
         }
-        [Reroute(RerouteGroupType.GroupTwo)]
+        [TCReroute(TaskMQQroup.GroupTwo)]
         public ReturnResult AddAttachmentsIntoTask(string taskId, List<EsEntity.TaskCenter.InnerModel.Attachment> list)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -122,7 +122,7 @@ namespace EsBusiness
             }
             return re;
         }
-        [Reroute(RerouteGroupType.GroupTwo)]
+        [TCReroute(TaskMQQroup.GroupTwo)]
         public ReturnResult RemoveAttachmentsInTask(string taskId, List<string> fileIds)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -134,7 +134,7 @@ namespace EsBusiness
             }
             return re;
         }
-        [Reroute(RerouteGroupType.GroupTwo)]
+        [TCReroute(TaskMQQroup.GroupTwo)]
         public ReturnResult AddTaskDiscussion(string taskId, string discId, string message, List<string> mentionedAIds)
         {
 
@@ -146,7 +146,7 @@ namespace EsBusiness
             }
             return re;
         }
-        [Reroute(RerouteGroupType.GroupTwo)]
+        [TCReroute(TaskMQQroup.GroupTwo)]
         public ReturnResult RemoveTaskDiscussion(string taskId, string discId)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -164,7 +164,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="methods"></param>
         /// <returns></returns>
-        [Reroute(RerouteGroupType.GroupOne)]
+        [TCReroute(TaskMQQroup.GroupOne)]
         public ReturnResult UpdateTasks(List<TaskMethod> methods)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -186,7 +186,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="tasks"></param>
         /// <returns></returns>
-        [Reroute(RerouteGroupType.GroupOne)]
+        [TCReroute(TaskMQQroup.GroupOne)]
         public ReturnResult AddTasks(List<Task> tasks)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -202,7 +202,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="taskIds">任务ids</param>
         /// <returns></returns>
-        [Reroute(RerouteGroupType.GroupTwo)]
+        [TCReroute(TaskMQQroup.GroupTwo)]
         public ReturnResult RemoveTasksByTaskIds(List<string> taskIds)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -230,7 +230,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="folderId">项目id</param>
         /// <returns></returns>
-        [Reroute(RerouteGroupType.GroupTwo)]
+        [TCReroute(TaskMQQroup.GroupTwo)]
         public ReturnResult RemoveTasksByFolderId(string folderId)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -258,7 +258,7 @@ namespace EsBusiness
         /// <param name="folderId"></param>
         /// <param name="folderName"></param>
         /// <returns></returns>
-        [Reroute(RerouteGroupType.GroupTwo)]
+        [TCReroute(TaskMQQroup.GroupTwo)]
         public ReturnResult UpdateTasksFolderNameByFolderId(string folderId, string folderName)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);
@@ -288,7 +288,7 @@ namespace EsBusiness
         /// </summary>
         /// <param name="folderId"></param>
         /// <returns></returns>
-        [Reroute(RerouteGroupType.GroupTwo)]
+        [TCReroute(TaskMQQroup.GroupTwo)]
         public ReturnResult UnlockFolderAndTasks(string folderId)
         {
             ReturnResult re = new ReturnResult(ResultCode.Error);

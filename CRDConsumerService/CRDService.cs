@@ -10,13 +10,13 @@ using System.Text;
 
 namespace CRDConsumerService
 {
-    public class CRDService
+    public static class CRDService
     {
         //private readonly ITaskCenterContract taskCenterService = CSInterceptIWindsor.Instance.Resolve<ITaskCenterContract>();
         private static RedisHelper redisHelper = RedisProvider.ESMethod;
         private static Dictionary<Type, object> dictionary = new Dictionary<Type, object>();
         private static readonly object locker = new object();
-        private object GetIntance(Type type)
+        private static object GetIntance(Type type)
         {
             if (!dictionary.ContainsKey(type))
             {
@@ -34,7 +34,7 @@ namespace CRDConsumerService
             }
             return dictionary[type];
         }
-        public void Start(int group)
+        public static void Start(int group)
         {
             if (group == 0)
                 return;

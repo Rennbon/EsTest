@@ -16,8 +16,7 @@ namespace CRDConsumerService
         public static void RedisMQService()
         {
             List<int> list = new List<int> { 1, 2 };
-            CRDService service = new CRDService();
-            list.ForEach(o =>System.Threading.Tasks.Task.Run(()=> service.Start(o)));
+            list.ForEach(o =>System.Threading.Tasks.Task.Run(()=> CRDService.Start(o)));
         }
     }
 }

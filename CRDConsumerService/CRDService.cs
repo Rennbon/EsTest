@@ -40,16 +40,23 @@ namespace CRDConsumerService
                 return;
             while (true)
             {
-                var entity = redisHelper.PopItemFromList<ReflectionMap>(RedisKeys.ESCRDKey + group);
-                if (entity == null)
+                try
                 {
-                    System.Threading.Thread.Sleep(500);
+                    var entity = redisHelper.PopItemFromList<ReflectionMap>(RedisKeys.ESCRDKey + group);
+                    if (entity == null)
+                    {
+                        System.Threading.Thread.Sleep(500);
+                    }
+                    else
+                    {
+                        MethodInfo methodInfo = entity.ReflectedType.GetMethod(entity.Name);
+                        ParameterInfo[] paramsInfo = methodInfo.GetParameters();
+                        object returnValue = methodInfo.Invoke(GetIntance(entity.ReflectedType), entity.Arguments);
+                    }
                 }
-                else
+                catch(Exception ex)
                 {
-                    MethodInfo methodInfo = entity.ReflectedType.GetMethod(entity.Name);
-                    ParameterInfo[] paramsInfo = methodInfo.GetParameters();
-                    object returnValue = methodInfo.Invoke(GetIntance(entity.ReflectedType), entity.Arguments);
+                    //记日志
                 }
             }
         }

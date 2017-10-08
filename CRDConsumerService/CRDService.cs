@@ -10,7 +10,7 @@ using System.Text;
 
 namespace CRDConsumerService
 {
-    public static class CRDService
+    public class CRDService
     {
         //private readonly ITaskCenterContract taskCenterService = CSInterceptIWindsor.Instance.Resolve<ITaskCenterContract>();
         private static RedisHelper redisHelper = RedisProvider.ESMethod;
